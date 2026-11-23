@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#14212b">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<title>Rafiq Driver · رفيق السائق</title>
+<style>
+:root{--bg:#eef1f4;--card:#fff;--ink:#14212b;--mute:#5d6b77;--line:#d5dbe1;--amber:#e0a019;--green:#2a9d5c;--red:#d64545;--navy:#14212b;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0d151c;--card:#16222c;--ink:#e8edf1;--mute:#93a1ad;--line:#2a3945;--navy:#0a1117;--amber:#f2b134;--green:#3fae6a;--red:#ef6a6a}}
+:root[data-theme="dark"]{--bg:#0d151c;--card:#16222c;--ink:#e8edf1;--mute:#93a1ad;--line:#2a3945;--navy:#0a1117;--amber:#f2b134;--green:#3fae6a;--red:#ef6a6a}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Cairo,Tahoma,Arial,sans-serif;line-height:1.6}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--navy);z-index:10}
+header{background:var(--navy);color:#f3f5f7;padding:10px 14px 0;position:sticky;top:env(safe-area-inset-top,0px);z-index:5}
+.top{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:.9rem}
+.top button{background:rgba(255,255,255,.12);color:#fff;border:0;border-radius:6px;padding:4px 10px;font:inherit;cursor:pointer}
+nav{display:flex;margin-top:6px}
+nav button{flex:1;background:none;border:0;border-bottom:4px solid transparent;color:#9fb0bd;font:inherit;font-weight:600;padding:8px 2px;cursor:pointer}
+nav button[aria-selected=true]{color:#fff;border-color:var(--amber)}
+main{padding:14px;max-width:640px;margin:0 auto}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px;margin-bottom:12px}
+input,select,textarea{width:100%;background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:10px;font:inherit;margin-bottom:8px}
+textarea{min-height:90px}
+.btn{width:100%;border:0;border-radius:10px;padding:12px;font:inherit;font-weight:800;background:var(--green);color:#fff;cursor:pointer}
+.btn.s{background:var(--bg);color:var(--ink);border:1px solid var(--line)}
+.seg{display:flex;gap:6px;margin-bottom:8px}
+.seg button{flex:1;background:var(--bg);border:1px solid var(--line);color:var(--ink);border-radius:8px;padding:8px 4px;font:inherit;font-weight:600;cursor:pointer}
+.seg button.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+.row{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.lim{flex:none;border:7px solid var(--red);border-radius:50%;width:96px;height:96px;display:flex;align-items:center;justify-content:center;font-size:2.2rem;font-weight:800;background:#fff;color:#14212b;direction:ltr}
+.big{font-size:1.2rem;font-weight:800}.mute{color:var(--mute);font-size:.88rem}
+.tag{display:inline-block;border-radius:6px;padding:0 8px;font-size:.8rem;font-weight:800;color:#fff}
+.ok{background:var(--green)}.bad{background:var(--red)}.warn{background:var(--amber);color:#14212b}
+.z{display:flex;justify-content:space-between;padding:6px 0;border-top:1px solid var(--line);direction:ltr}
+.st{display:flex;align-items:center;gap:8px;padding:9px 0;border-top:1px solid var(--line);cursor:pointer}
+.st.here{background:rgba(224,160,25,.2);margin:0 -14px;padding-inline:14px}
+.st .tm{min-width:84px;direction:ltr;text-align:start;font-weight:600}
+.st .n{flex:1}.st .n small{display:block}.sy{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;flex:none;vertical-align:middle;background:#000;color:#fff;border-radius:4px;font-size:.62rem;font-weight:800;margin-inline-end:8px;font-style:normal}.sy.sp{background:none}.sg{display:inline-block;width:30px;height:30px;flex:none;vertical-align:middle;border:2px solid #d62828;border-radius:3px;margin-inline-end:8px;background:conic-gradient(#fff 0 25%,#d62828 0 50%,#fff 0 75%,#d62828 0)}
+.card{box-shadow:0 1px 4px rgba(0,0,0,.08);border-radius:14px}header{background:linear-gradient(135deg,var(--navy),#22445a)}.top #who{font-weight:800;font-size:1rem}.lim{box-shadow:0 2px 10px rgba(214,69,69,.35)}.btn{border-radius:12px;box-shadow:0 2px 0 rgba(0,0,0,.2)}.st{padding:11px 0}.here .big,#here{font-size:1.15rem}
+#sheet{position:fixed;inset:0;background:rgba(0,0,0,.55);display:flex;align-items:flex-end;justify-content:center;z-index:50}#sheet .box{background:var(--card);color:var(--ink);width:100%;max-width:640px;border-radius:18px 18px 0 0;padding:18px;padding-bottom:calc(18px + env(safe-area-inset-bottom,0px))}#sheet .num{font-size:1.7rem;font-weight:800;direction:ltr;text-align:center;margin:6px 0 12px}#sheet .btn{margin-top:8px}
+#sheet2{position:fixed;inset:0;background:rgba(0,0,0,.55);display:flex;align-items:flex-end;justify-content:center;z-index:50}#sheet2 .box{background:var(--card);color:var(--ink);width:100%;max-width:640px;max-height:85vh;overflow:auto;border-radius:18px 18px 0 0;padding:18px;padding-bottom:calc(18px + env(safe-area-inset-bottom,0px))}button.tag{border:0;cursor:pointer;font:inherit;font-weight:800;padding:4px 14px}
+.gauge{font-size:3.2rem;font-weight:800;line-height:1;direction:ltr;text-align:center}
+.bar{height:12px;background:var(--line);border-radius:6px;position:relative;margin-top:8px}
+.bar i{display:block;height:100%;border-radius:6px;background:var(--green);width:0}
+.bar u{position:absolute;top:-4px;bottom:-4px;width:3px;background:var(--red)}
+.kv{display:flex;justify-content:space-between;padding:6px 0;border-top:1px solid var(--line)}
+.kv:first-of-type{border-top:0}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<main id="login" hidden>
+  <div class="card">
+    <h2 data-i="loginT"></h2>
+    <input id="uid" autocapitalize="characters" data-p="uid" autocomplete="off">
+    <input id="uname" data-p="uname" autocomplete="off"><p id="lerr" class="mute" style="color:var(--red)"></p>
+    <button class="btn" id="lgo" data-i="enter"></button>
+    <p class="mute" data-i="loginNote"></p>
+    <button class="btn s" id="lang0">العربية / Français</button>
+  </div>
+</main>
+
+<div id="sheet" hidden><div class="box"><div class="mute" data-i="callQ"></div><div class="big" id="sh-name"></div><div class="num" id="sh-num"></div><button class="btn" id="sh-call" data-i="callBtn"></button><button class="btn s" id="sh-x" data-i="cancel"></button></div></div>
+<div id="sheet2" hidden><div class="box"><div class="mute" data-i="svT"></div><div id="sv2-body"></div><button class="btn s" id="sv2-x" data-i="closeB"></button></div></div>
+<div id="app" hidden>
+<header>
+  <div class="top"><span id="who"></span><span><button id="lang">FR</button> <button id="out" data-i="logout"></button></span></div>
+  <nav role="tablist">
+    <button data-t="trip" data-i="tTrip"></button><button data-t="hours" data-i="tHours"></button>
+    <button data-t="rep" data-i="tRep"></button><button data-t="data" data-i="tData"></button>
+  </nav>
+</header>
+<main>
+<section id="trip">
+  <div class="card">
+    <div class="row"><input id="tno" data-p="trainNo" style="margin:0" autocapitalize="characters"><button class="btn" id="tgo" style="width:auto;padding:12px 20px" data-i="go"></button></div>
+    <p class="mute" id="tmsg" style="margin:8px 0 0"></p>
+  </div>
+  <div id="tinfo" hidden>
+    <div class="card">
+      <div class="big" id="tt"></div><div class="mute" id="tr"></div>
+      <div class="seg" id="cat" style="margin:8px 0 0"></div>
+    </div>
+    <div class="card">
+      <div class="row">
+        <div>
+          <div class="mute" data-i="cur"></div><div class="big" id="here">--</div>
+          <div class="mute" id="jx"></div><div id="svc" style="margin:4px 0"></div>
+          <div class="mute" id="dl"></div>
+          <div class="mute" style="margin-top:6px" data-i="next"></div><div class="big" id="nx">--</div><div class="mute" id="nd"></div>
+          <div id="ph"></div>
+        </div>
+        <div style="text-align:center"><div class="lim" id="lim">--</div><div class="mute" data-i="maxsp"></div></div>
+      </div>
+      <div class="seg" style="margin-top:10px"><button id="prv">◀</button><button id="auto" data-i="auto"></button><button id="nxt">▶</button></div>
+    </div>
+    <div class="card"><div class="mute" data-i="zones"></div><div id="zones"></div></div>
+    <div class="card">
+      <div class="row"><div class="mute" data-i="tacho"></div><button class="btn s" id="gps" style="width:auto;padding:6px 14px"></button></div>
+      <div class="gauge"><span id="spd">--</span> <small class="mute">km/h</small></div>
+      <div class="bar"><i id="gb"></i><u id="gl" hidden></u></div>
+    </div>
+    <div class="card"><div class="mute" data-i="sched"></div><div id="stations"></div></div>
+  </div>
+</section>
+
+<section id="hours" hidden>
+  <div class="card">
+    <label class="mute" data-i="date"></label><input type="date" id="hd">
+    <label class="mute" data-i="t2"></label><input id="t2" autocapitalize="characters">
+    <details style="margin-bottom:8px"><summary class="mute" data-i="editTimes"></summary><label class="mute" data-i="hs"></label><input type="time" id="hs"><label class="mute" data-i="hd2"></label><input type="date" id="hd2">
+    <label class="mute" data-i="he"></label><input type="time" id="he"></details>
+    <button class="btn" id="hc" data-i="saveDay"></button>
+    <p class="mute" data-i="hnote"></p>
+  </div>
+  <div class="card" id="hout"></div>
+  <div class="card">
+    <div class="mute" data-i="reserveT"></div>
+    <select id="rshift"><option value="240">04h00 → 12h00</option><option value="720">12h00 → 20h00</option><option value="1200">20h00 → 04h00</option></select>
+    <label class="mute" data-i="otH"></label><input type="number" id="rot" min="0" max="4" step="0.5" value="0">
+    <button class="btn" id="rsv" data-i="saveRes"></button>
+  </div>
+  <div class="card">
+    <div class="mute" data-i="logT"></div>
+    <input type="month" id="hm">
+    <div id="msum"></div>
+    <div id="hlog"></div>
+  </div>
+</section>
+
+<section id="rep" hidden>
+  <div class="card">
+    <select id="rtype"></select>
+    <textarea id="rtxt" data-p="rtxt"></textarea>
+    <button class="btn" id="rsave" data-i="save"></button>
+  </div>
+  <div class="card"><div id="rlist"></div><button class="btn s" id="rcopy" data-i="copyAll"></button></div>
+</section>
+
+<section id="data" hidden>
+  <div class="card">
+    <div class="mute" data-i="phones"></div>
+    <select id="pst"></select><input id="pnum" inputmode="tel" data-p="phone">
+    <button class="btn" id="psave" data-i="save"></button>
+    <div id="plist" style="margin-top:8px"></div>
+  </div>
+  <div class="card">
+    <div class="mute" data-i="svcT"></div>
+    <textarea id="svcj" style="min-height:160px;direction:ltr;font-family:monospace;font-size:.8rem"></textarea>
+    <div class="seg"><button id="svsave" data-i="save"></button><button id="svreset" data-i="reset"></button></div>
+    <p class="mute" id="svmsg"></p>
+  </div>
+  <div class="card"><div class="mute" data-i="usersT"></div><textarea id="usrj" style="min-height:120px;direction:ltr;font-family:monospace;font-size:.8rem" placeholder='{"026905E":{"n":"Prénom","l":"Nom"}}'></textarea><button class="btn" id="ussave" data-i="save"></button><p class="mute" id="usmsg"></p></div>
+  <p class="mute" data-i="warn"></p>
+</section>
+</main>
+</div>
+
+<script>
+/* ===== بيانات الخطوط (من livret de marche) ===== */
+// st: [محطة, PK] | z: [من, إلى, سرعة الخط, ركاب≥9/10, ركاب<9/10, بضائع]
+const LINES=[
+{n:"Annaba ⇄ Ramdane-Djamel",both:1,z:[[0,31.9,140,120,100,80],[31.9,34,30,30,30,30],[34,82.4,140,120,100,80],[82.4,96.2,100,100,90,70]],
+st:[["Annaba",0],["Poste II",6.9],["Oued-Zied",17.9],["Berrahal",32.2],["Hadjar-Soud",47.7],["Makessa",51.6],["Zit-Emba",54.8],["Oued-Hamimime (Annaba)",65.3],["Azzaba",71.8],["Ras-El-Ma",82.4],["Oued-Deb",89.5],["Ramdane-Djamel",96.2]]},
+{n:"El-Gourzi ⇄ Biskra",both:1,z:[[0,30.9,95,95,95,80],[30.9,48,95,95,95,70],[48,62,120,120,100,80],[62,85.3,95,95,95,80],[85.3,109,120,120,100,70],[109,121.9,70,70,70,null],[121.9,127.5,65,65,65,50],[127.5,135.4,80,80,80,50],[135.4,135.9,70,70,70,50],[135.9,144.2,80,80,80,50],[144.2,145.4,80,80,80,60],[145.4,146.9,70,70,70,50],[146.9,155.9,90,90,80,50],[155.9,173.9,70,70,70,50],[173.9,201.1,60,60,60,60]],
+st:[["El-Gourzi",0],["Ain M'Lila",11.8],["Ouled-Zouai",30.9],["Ain-Yagout",47.1],["Djerma",63.7],["Fesdis",67.6],["Batna",80.5],["Ghadjati",96.4],["Ain-Touta",113.5],["Tamarins",121.9],["Maafa-Village",128.7],["Maafa",131],["El-Kantara",145.7],["El-Kantara-Gorges",147.6],["Membaa-El-Ghezal",162.8],["El-Outaya",173.9],["Dar-Arous",189],["Biskra",201.1]]},
+{n:"Ain-Touta ⇄ M'Sila",z:[[0,52.9,150,110,90,50],[54.3,99.6,160,120,100,80],[99.6,103.8,150,120,100,80],[147.7,148.9,90,90,null,null]],
+st:[["Ain-Touta",0],["Ghasrou",14.4],["Seggana",35.2],["Barika",51.6],["Ouled-Abdellah",64.1],["Ouled-Ammar",76.9],["Magra",88.5],["Berhoum",103],["Selmane",124.2],["M'Sila",148.9]]},
+{n:"Ain-Abid ⇄ El-Khroub",both:1,z:[[175.8,202.6,40,40,40,40]],
+st:[["Ain-Abid",175.8],["Bou-Nouara",187.8],["OAIC-Khroub",200.9],["El-Khroub",202.6]]},
+{n:"El-Hadjar-Ouest ⇄ Oued-Zied",both:1,z:[[0,4,30,30,30,30],[4,16,100,100,100,80]],
+st:[["El-Hadjar-Ouest",0],["Oued-Zied",16]]},
+{n:"Bordj-Bou-Arreridj ⇄ Constantine",both:1,approx:1,z:[[238.4,245.2,140,110,90,50],[245.2,254.1,140,120,100,80],[254.1,271,140,100,80,50],[271,283,140,110,90,50],[283,306.458,140,120,100,80],[306.458,309.42,80,60,60,60],[309.42,314.256,120,120,90,70],[314.256,320.4,160,120,90,70],[320.4,321.6,105,105,100,70],[321.6,322.4,110,100,100,60],[322.4,332.25,160,100,100,60],[332.25,334.9,110,100,100,60],[334.9,337.7,100,100,100,60],[337.7,341.7,110,100,90,60],[341.7,345.076,160,120,90,70],[345.076,346.885,150,120,90,70],[346.885,352,160,120,90,70],[352,353.5,110,110,90,70],[353.5,367.197,130,110,90,70],[367.197,381.7,160,120,100,80],[381.7,383.4,130,120,100,80],[383.4,384.31,80,80,60,60],[384.31,393.916,160,110,100,50],[393.916,401.8,130,110,100,50],[401.8,402.206,160,110,100,50],[402.206,402.8,130,110,100,50],[402.8,403.84,130,120,90,70],[403.84,413.286,160,120,90,70],[413.286,414.876,130,120,90,70],[414.876,425.313,160,110,90,50],[425.313,426.4,90,90,90,50],[426.4,435.5,120,120,100,50],[435.5,447.8,120,120,100,70],[447.8,452.1,90,90,90,60],[452.1,462,70,70,70,80],[462,463.5,70,70,70,70]],
+st:[["Bordj-Bou-Arreridj",238.4],["El-Anasser",245.2],["Bel-Imour",254.1],["Bir-Aissa-Ayada",263.2],["Ras-El-Oued",271],["El-Hammam",283],["Ouled-Yelles",285.5],["Mesloug",296.2],["Setif",308],["Guidjel",321.6],["El-Eulma",338.8],["Bir-El-Arch",353.5],["Tadjenanet",366.7],["Chelghoum-El-Aid",383.4],["Telerghma",402.8],["Ain-Lehma",413.8],["El-Gourzi",426.4],["Ouled-Rahmoun",435.5],["El-Khroub",447.8],["Oued-Hamimime",452.1],["Sidi-Mabrouk",461.2],["Chalets-des-Pins",462],["Constantine",463.5]]},
+{n:"Biskra ⇄ Touggourt",both:1,approx:1,z:[[0,0.931,120,110,90,60],[0.931,1.116,120,120,90,60],[1.116,10.556,120,120,90,70],[10.556,22.425,120,120,100,80],[22.425,26.222,110,110,100,80],[26.222,39.205,120,120,100,80],[39.205,57.629,120,120,90,70],[57.629,58.287,110,110,90,70],[58.287,62.972,120,120,90,70],[62.972,76.12,120,120,90,80],[76.12,76.172,120,120,90,70],[76.172,79.188,120,120,90,80],[79.188,79.32,80,80,80,80],[79.32,84.321,90,90,90,80],[84.321,88.995,120,120,90,80],[88.995,89.195,120,120,90,70],[89.195,115.242,120,120,100,80],[115.242,116.416,70,70,70,70],[116.416,119.861,120,120,90,70],[119.861,160.283,120,120,100,80],[160.283,163.977,100,100,100,80],[163.977,164.668,100,100,90,70],[164.668,164.884,50,50,50,50],[164.884,173.77,120,120,100,80],[173.77,179.2,100,100,100,80],[179.2,186.496,120,120,100,80],[186.496,186.808,100,100,100,80],[186.808,202.663,120,120,100,80],[202.663,203.892,100,100,100,80],[203.892,215.989,120,120,100,80],[215.989,217,50,50,50,50]],
+st:[["Biskra",0],["Oumache",22.3],["Bir-Djefeir",50.7],["Stil",78.7],["Ourir",108.4],["N'Sigha",109.6],["El-Meghair",116.5],["Sidi-Khelil",129.9],["El-Berd",143.8],["Tenedla",150],["El-Arfiane",152.1],["El-Melah",158.8],["Djamaa",164.3],["Sidi-Amrane",168.1],["Tamerna",176.3],["Ain-Choucha",177.4],["Moggar",197.9],["Meggarine",207],["Touggourt",217]]},
+{n:"Skikda ⇄ Constantine",both:1,z:[[0,9.7,70,70,70,70],[9.7,10.4,50,50,50,50],[10.4,18.8,70,70,70,70],[18.8,20.886,85,85,85,70],[20.886,62.157,90,90,85,70],[62.157,69.717,90,90,80,50],[69.717,85.696,90,90,90,80],[85.696,89,75,75,75,75]],zr:[[0,9.7,70,70,70,70],[9.7,10.4,50,50,50,50],[10.4,18.8,70,70,70,70],[18.8,20.886,85,85,85,70],[20.886,30.309,90,90,85,70],[30.309,36.269,90,90,70,40],[36.269,43.007,90,90,80,50],[43.007,61.924,90,90,70,40],[61.924,69.717,90,90,90,80],[69.717,76.597,90,90,80,50],[76.597,85.696,90,90,90,80],[85.696,89,75,75,75,60]],
+st:[["Skikda",0],["Hammoudi-Krouma",5.5],["Saf-Saf",10.4],["Ramdane-Djamel",18.8],["Sahki-Ahmed",24.6],["Salah-Bouchaour",27.7],["El-Arrouche",33.1],["Ain-Bouziane",50.6],["Zirout-Youcef",62.6],["Didouche-Mourad",76.8],["Kef-Salah",78.5],["Hamma-March.",80.5],["Hamma-Voy.",82.9],["Bekeira",84.9],["Constantine",89]]},
+{n:"Jijel ⇄ Sahki-Ahmed",both:1,approx:1,z:[[0,1.025,40,40,40,40],[1.025,26.7,120,120,90,70],[26.7,28,110,110,90,70],[28,38.8,120,110,100,80],[38.8,41,110,110,100,80],[41,41.64,100,100,100,50],[41.64,43,80,80,80,50],[43,44,100,100,90,50],[44,46.21,110,100,90,50],[46.21,46.975,100,100,90,50],[46.975,49.618,110,100,90,50],[49.618,50.6,40,40,40,40],[50.6,63.4,120,120,100,80],[63.4,72.2,120,110,100,70],[72.2,75.6,120,110,100,60],[75.6,82.9,100,100,90,60],[82.9,95.3,100,100,90,50],[95.3,108.5,120,110,90,60],[108.5,113,120,120,100,80],[113,119.3,100,100,90,60],[119.3,135.6,100,100,80,60],[135.6,136.3,60,60,60,60]],
+st:[["Jijel",0],["Bazoul",13.8],["Sidi-Abdelaziz",27],["El-Ancer",39.6],["El-Milia",50.6],["Settara",63.4],["Ain-Kechera",72.2],["Ain-Rouibah",82.9],["Tamalous",94.4],["Guinguita",108.5],["Sidi-Mezghiche",119.3],["Em-Jez-Edchiche",129.4],["Sahki-Ahmed",136.3]]},
+{n:"Ain M'Lila ⇄ Sidi-Yahia",both:1,z:[[0,164.4,150,120,100,80]],st:[["Ain M'Lila",0],["Ain-Fakroun",33.9],["Oum-El-Bouaghi",65.2],["Ain-Beida",92.8],["Sidi-Yahia",164.4]]}
+];
+
+LINES[5].z=[[238.4,245.2,140,110,90,50],[245.2,254.1,140,120,100,80],[254.1,271,140,100,80,50],[271,283,140,110,90,50],[283,306.458,140,120,100,80],[306.458,309.42,80,60,60,60],[309.42,314.256,120,120,90,70],[314.256,320.4,160,120,90,70],[320.4,321.6,105,105,100,70],[321.6,322.4,110,100,90,60],[322.4,332.25,160,100,90,60],[332.25,334.9,110,100,90,60],[334.9,337.7,100,100,90,60],[337.7,341.7,110,100,90,60],[341.7,345.076,160,120,90,70],[345.076,346.885,150,120,90,70],[346.885,352,160,120,90,70],[352,353.5,110,110,100,80],[353.5,367.197,130,120,100,80],[367.197,381.7,160,120,100,80],[381.7,383.4,130,120,100,50],[383.4,384.31,80,80,80,50],[384.31,393.916,160,110,90,50],[393.916,401.8,130,110,90,50],[401.8,402.206,160,110,90,50],[402.206,402.8,130,110,90,70],[402.8,403.84,130,110,90,70],[403.84,413.286,160,110,90,70],[413.286,414.876,130,110,90,50],[414.876,425.313,160,110,90,50],[425.313,426.4,90,90,90,70],[426.4,435.5,120,120,100,60],[435.5,447.8,120,120,100,80],[447.8,452.1,90,90,90,70],[452.1,463.5,70,70,70,70]];
+/* ===== جداول القطارات (horaires) ===== */
+// T(رقم, خط, اتجاه(1/-1), أول محطة، الأزمنة بترتيب السير: "وصول/انطلاق" ، "-" = عدم توقف)
+const TR={};
+function build(segs){const out=[];segs.forEach(([li,dir,a,b],k)=>{const st=dir>0?LINES[li].st:LINES[li].st.slice().reverse();const i=a?st.findIndex(x=>x[0]===a):0,j=b?st.findIndex(x=>x[0]===b):st.length-1;st.slice(i,j+1).forEach((x,m)=>{if(k>0&&m===0&&out.length&&out[out.length-1][0]===x[0])return;out.push([x[0],x[1],li,dir])})});return out}
+function T(no,li,dir,first,str){TM(no,[[li,dir]],first,str)}
+function TM(no,segs,first,str){
+  const ordr=build(segs),o=ordr.map(x=>x[0]);
+  let i=o.indexOf(first),last=-1;const stops=[];
+  const f=v=>{let[h,m]=v.split(".").map(Number),x=h*60+m;while(x<last-720)x+=1440;last=Math.max(last,x);return x};
+  str.split(" ").forEach(k=>{
+    if(k!=="-"&&k!=="x"){const[a,d]=k.split("/");const A=f(a);let D=A;
+      if(d)D=f(d.includes(".")?d:a.split(".")[0]+"."+d);
+      stops.push({s:o[i],a:A,d:D})}
+    i++});
+  const f0=o.indexOf(stops[0].s),l0=o.indexOf(stops[stops.length-1].s),trim=ordr.slice(f0,l0+1);
+  no.split("/").forEach(k=>{TR[k]={no:k,li:segs[0][0],dir:segs[0][1],ordr:trim,stops}});
+}
+// BBA ⇄ Constantine (fascicule horaires 2, voyageurs)
+T("AC",5,1,"Bordj-Bou-Arreridj","9.40/45 9.49 9.54 9.59 10.04 10.10 10.11 10.17 10.25/27 10.38 10.49 10.58 11.06 11.17 11.32 - 11.48 11.55 12.02 - 12.13 - 12.18");
+T("1",5,1,"Bordj-Bou-Arreridj","11.52/57 12.01/02 12.08 12.13/14 12.20/21 12.29 12.30 12.36/37 12.47/49 13.00 13.11/13 13.22 13.30/31 13.42 13.57/58 - 14.15/17 14.22/23 14.31/32 - 14.44 - 14.49");
+T("19",5,1,"Bordj-Bou-Arreridj","18.59/19.01 19.05/06 19.12 19.17/18 19.24/25 19.32 19.33 19.39/40 19.47");
+T("AB",5,1,"Bordj-Bou-Arreridj","23.30/35 23.40 23.45 23.51 23.56 0.03 0.04 0.10 0.19/24 0.37 0.50/54 1.05 1.14/16 1.30 1.47/48 - 2.10/11 2.18 2.26/27 - 2.40 - 2.45/55");
+T("AT",5,1,"Bordj-Bou-Arreridj","0.30/35 0.40 0.45 0.51 0.56 1.03 1.04 1.10 1.19/24 1.37 1.50/54 2.05 2.14/16 2.30 2.47/48 - 3.10/11 3.18 3.26/27 - 3.40 - 3.45/55");
+T("2",5,-1,"Constantine","6.40 - 6.45 - 6.58/59 7.07/08 7.16/17 - 7.35/36 7.52 8.04/05 8.13 8.22/24 8.35 8.46/48 8.57/58 9.05 9.06 9.13/14 9.20/21 9.27 9.32/33 9.38/43");
+T("18",5,-1,"Setif","5.40 5.48 5.54 5.55 6.01/02 6.08/09 6.15 6.20/21 6.26/28");
+T("CA",5,-1,"Constantine","14.30 - 14.35 - 14.47 14.53 14.59 - 15.14 15.29 15.40 15.46 15.55 16.05 16.16/18 16.26 16.32 16.33 16.39 16.44 16.49 16.54 16.58/17.03");
+T("BA",5,-1,"Constantine","21.54/22.00 - 22.05 - 22.18/19 22.27 22.34/36 - 22.54/56 23.12 23.26/28 23.37 23.48/51 0.04 0.16/22 0.32 0.38 0.39 0.47 0.54 1.00 1.06 1.11/20");
+T("TA",5,-1,"Constantine","22.54/23.00 - 23.05 - 23.18/19 23.27 23.34/36 - 23.54/55 0.11 0.25/26 0.35 0.46/52 1.05 1.17/21 1.30 1.36 1.37 1.44 1.50 1.56 2.02 2.07/13");
+// Ain-Touta ⇄ M'Sila (fascicule horaires 2, p.14)
+T("3",2,1,"Ain-Touta","4.53/56 5.06 5.19 5.30/31 5.42 5.51 6.01 6.13 6.30 6.51/55");
+T("3353",2,1,"Ain-Touta","8.45/53 9.11");
+T("3393",2,1,"Ain-Touta","10.08 10.26");
+T("8",2,-1,"M'Sila","16.38/43 17.04 17.21 17.33 17.43/44 17.52 18.03/04 18.15 18.28 18.39/45");
+T("3392",2,-1,"Ghasrou","9.36 9.48");
+T("3394",2,-1,"Ghasrou","10.48 11.00/25");
+const CB=[[5,-1,'Constantine','El-Gourzi'],[1,1,'El-Gourzi','Biskra']],BC=[[1,-1,'Biskra','El-Gourzi'],[5,1,'El-Gourzi','Constantine']];
+// ---- trains traversant deux lignes (écrase les définitions courtes) ----
+TM('3',[[1,1,'Batna','Ain-Touta'],[2,1]],'Batna','4.30 4.41 4.53/56 5.06 5.19 5.30/31 5.42 5.51 6.01 6.13 6.30 6.51/55');
+TM('3353',[[1,1,'Batna','Ain-Touta'],[2,1]],'Batna','8.10 8.29 8.45/53 9.11');
+TM('8',[[2,-1],[1,-1,'Ain-Touta','Batna']],"M'Sila",'16.38/43 17.04 17.21 17.33 17.43/44 17.52 18.03/04 18.15 18.28 18.39/45 18.57 19.09');
+TM('3394',[[2,-1,'Ghasrou','Ain-Touta'],[1,-1,'Ain-Touta','Batna']],'Ghasrou','10.48 11.00/25 11.43 11.58');
+// ---- BBA -> Constantine, marchandises (p.3) ----
+T('3031',5,1,'Bir-Aissa-Ayada','8.00 8.09 8.21/22 - 8.35 8.50');
+T('3033',5,1,'El-Eulma','8.45 9.00 9.15/18 9.33 9.57/58 - 10.21/23 10.34 10.49');
+T('3035',5,1,'Bordj-Bou-Arreridj','8.40 8.49 9.03 9.13 9.22 9.34 - 9.46 10.01/55 11.09 11.27/39 11.54 12.09/10 12.25 12.49/50 - 13.13/15 13.26 13.41/46 - 14.00');
+T('3037',5,1,'Setif','15.40 15.54 16.12 16.30 16.45 17.00 17.24/25 - 17.48/50 18.01 18.16/30 - 18.44');
+T('3039',5,1,'Bordj-Bou-Arreridj','17.35 17.44 17.58 18.08 18.17 18.29 - 18.41 18.56/19.05 19.19 19.37/40 19.55 20.10/11 20.26 20.50 - 21.13/25 21.36/41 21.57/22.00 - 22.14');
+T('6031',5,1,'Bordj-Bou-Arreridj','1.25 1.34 1.48 1.58 2.07 2.19 - 2.31 2.46/48 3.02 3.20/21 3.36 3.51/52 4.07 4.31/35 - 4.58/5.00 5.11 5.26/40 - 5.54');
+T('6033',5,1,'Bordj-Bou-Arreridj','5.45 5.54 6.08 6.18 6.27 6.39');
+T('6153',5,1,'Bordj-Bou-Arreridj','5.56/6.25 6.34 6.48 6.58 7.07');
+T('6155',5,1,'Bordj-Bou-Arreridj','13.36/45 13.54 14.08 14.18 14.27');
+T('6035',5,1,'Bordj-Bou-Arreridj','14.30 14.39 14.53 15.03 15.12 15.24 - 15.36 15.51/16.20 16.34 16.52/55 17.10 17.25/26 17.41 18.05/06 - 18.29/32 18.43/47 19.03/05 - 19.19');
+T('6157',5,1,'Bordj-Bou-Arreridj','16.44/55 17.04 17.18 17.28 17.37');
+// ---- Constantine -> BBA, marchandises (p.6) ----
+T('3030',5,-1,'Constantine','3.10 - 3.17/18 - 3.33/40 3.55 4.06/07 - 4.32/33 4.58 5.12/13 5.28 5.44/46 6.04 6.19/30 6.44 - 6.55 7.08 7.18 7.28 7.38 7.47');
+T('3032',5,-1,'El-Khroub','5.10 5.25 5.36/38 - 6.03/04 6.29 6.43/44 6.59 7.15');
+T('3034',5,-1,'Setif','6.00 6.14 - 6.25 6.38 6.48');
+T('3036',5,-1,'El-Khroub','12.55 13.10 13.21/23 - 13.48/59 14.24 14.38/39 14.52 15.08/10 15.28 15.43');
+T('3038',5,-1,'Constantine','17.45 - 17.52/53 - 18.08/22 18.37 18.48/50 - 19.15 19.40 19.54/20.13 20.28 20.44/45 21.03 21.18/27 21.41 - 21.52 22.05 22.15 22.25 22.35 22.44');
+T('6030',5,-1,'Constantine','0.15 - 0.22/24 - 0.39/50 1.05 1.16/17 - 1.42/52 2.17/32 2.47 3.01 3.17/26 3.44 3.59/4.05 4.19 - 4.30 4.43 4.53 5.03 5.13 5.22');
+T('6032',5,-1,'Ras-El-Oued','9.50 10.00 10.10 10.20 10.29/35');
+T('6034',5,-1,'El-Hammam','12.00 12.13 12.23 12.33 12.43 12.52');
+T('6036',5,-1,'Constantine','8.25 - 8.32/33 - 8.48/9.03 9.18 9.29/30 - 9.55/10.00 10.25 10.39/11.07 11.22 11.38/45 12.03 12.18/30 12.44 - 12.55 13.08 13.18 13.28 13.38 13.47');
+T('6038',5,-1,'Ras-El-Oued','17.40 17.50 18.00 18.10 18.19/24');
+T('6040',5,-1,'Ras-El-Oued','20.00 20.10 20.20 20.30 20.39/44');
+// ---- Constantine -> Biskra (p.8-9) ----
+TM('350/351',CB,'Constantine','5.45 5.48 5.51/52 6.00 6.04/05 6.12/13 6.19/21 6.31/32 6.46 6.57/58 7.10/11 7.14 7.24/26 7.37 7.49/50 7.58 8.05 8.08 8.22/23 8.26/27 8.41/42 8.53/54 9.08 9.20');
+TM('352',CB,'Constantine','6.00 6.03/04 6.06/07 6.14/15 6.20/21 6.31');
+TM('353',CB,'Djerma','7.50 7.53/54 8.04');
+TM('355',CB,'Djerma','12.05 12.08/11 12.21/25 12.41 12.55');
+TM('357',CB,'Djerma','14.10 14.13/15 14.25');
+TM('CT',CB,'Constantine',"16.00 16.03 16.06/07 16.15 16.19/20 16.27/28 16.34/35 16.45/47");
+TM('358',CB,'Constantine','16.15 16.18/19 16.21/22 16.29/30 16.35/36 16.46');
+TM('372/373',CB,'Constantine','16.40 16.43 16.46/47 16.55 16.59/17.00 17.07/08 17.14/15 17.25/26 17.40 17.51/52 18.04/05 18.08 18.18/20 18.31 18.43/48 18.56 19.03 19.06 19.20/21 19.24/25 19.39/40 19.51/52 20.06 20.18');
+TM('3354/3355',CB,'Constantine','7.50 - 7.57 - 8.12/15 8.31 8.42/55 9.08/09 9.29/30 9.51/53 10.13/14 - 10.44/47 11.06 11.22/30 - - 11.53 12.13/41 - 13.01 13.15/25 13.39 13.51');
+TM('3502/3503',CB,'El-Khroub','9.20 9.36 9.47/49 10.02/04');
+TM('3356/3357',CB,'Constantine','14.50 - 14.57/58 - 15.13/26 15.42 15.53/59 16.12/14 16.34/35 16.56/57 17.17/18 - 17.48/19.40 19.59 20.15/35 - - 20.58 21.18/19 - 21.39 21.53/54 22.08 22.20');
+TM('3358/3359',CB,'Constantine','22.25 - 22.32/33 - 22.48/49 23.05 23.16/17 23.30/35 23.55/57 0.18/21 0.41/44 - 1.14');
+TM('6352/6353',CB,'Constantine','20.27 - 20.34 - 20.49/51 21.07 21.18/20 21.33/57 22.17/19 22.40/41 23.01/02 - 23.32');
+// ---- Biskra -> Constantine (p.12-13) ----
+TM('368/369',BC,'Biskra','16.20 16.33 16.48/50 17.01/02 17.15/16 17.18/19 17.33 17.36 17.43 17.51/52 18.04 18.16/25 18.35 18.38 18.50/51 19.03 19.17/18 19.28/30 19.37/38 19.46/47 19.51 19.59/20.00 20.03 20.05');
+TM('360',BC,'Ain-Touta','6.55 7.08 7.25/28 7.38/40 7.43');
+TM('361',BC,'Ouled-Rahmoun','7.10 7.20/21 7.26/27 7.35/36 7.39/40 7.43');
+TM('362',BC,'Batna','11.35 11.45/46 11.49');
+TM('364',BC,'Ain-Touta','13.05 13.18 13.34/37 13.47/49 13.52');
+TM('366',BC,'Batna','16.25 16.35/36 16.39');
+TM('367',BC,'Ouled-Rahmoun','17.10 17.20/21 17.26/27 17.35/36 17.39/40 17.43');
+TM('TC',BC,`Ain M'Lila`,'8.41/43 8.53/54 9.01/02 9.10/11 9.15 9.23/24 9.27 9.29');
+TM('370/371',BC,'Biskra','4.30 4.43 4.58/5.00 5.11/12 5.25/26 5.28/29 5.43 5.46 5.53 6.01/02 6.14 6.26/28 6.38 6.41/42 6.54/59 7.11 7.25/26 7.36/37 7.44/45 7.53/54 7.58 8.06/07 8.10 8.12');
+TM('3504/3505',BC,`Ain M'Lila`,'0.25/27 0.39/40 0.50 1.04');
+TM('3382/3383',BC,'Biskra','1.20 1.33 1.48/49 2.06 - 2.27/28 2.47 - - 3.12/20 3.38 3.53/4.15 - 4.31/32 4.53/54 5.10/11 5.30/31 5.43/54 6.04/10 6.24/42 - 6.56');
+TM('3386/3387',BC,'Biskra','11.30 11.43 11.58/59 12.16 - 12.37/39 12.58 - - 13.23/35 13.53 14.08/28 - 14.44/45 15.06/07 15.23/24 15.43/45 15.57/58 16.08/09 16.23/24 - 16.38');
+TM('3388/3389',BC,'Batna','20.40 - 20.56/57 21.18/19 21.35/36 21.55/56 22.08/09 22.19 22.33/34 - 22.48');
+TM('6382/6383',BC,'Biskra','23.00 23.13 23.28/30 23.47 - 0.08/10 0.29 - - 0.54/1.00 1.18 1.33/40 - 1.56/59 2.20/23 2.39/40 2.59/3.05 3.17/30 3.40/50 4.04/24 - 4.38');
+TM('6384/6385',BC,'Batna','9.00 - 9.16/17 9.38/58 10.14/15 10.34/35 10.47/49 10.59/11.01 11.15/20 - 11.34');
+// ---- Biskra <-> Touggourt (p.10-11) ----
+T('381',6,1,'Biskra','16.30 16.41/44 16.58 17.11/14 17.29/32 17.33/36 17.39/42 17.49/52 17.59 18.02 18.03 18.06 18.09/12 18.14 18.18 18.19 18.30/33 18.38 18.43');
+T('385',6,1,'Biskra','21.30 21.41/44 21.58 22.11/14 22.29/32 22.33/36 22.39/42 22.49/52 22.59 23.02 23.03 23.06 23.09/12 23.14 23.18 23.19 23.30/33 23.38 23.43');
+T('3761',6,1,'Biskra','5.50 6.08');
+T('3763',6,1,'Biskra','6.45 7.03/06 7.29 7.52/8.05 8.32/35 8.36 8.41/44 8.55/58 9.08 9.13 9.15 9.20 9.24/27 9.30 9.36/39 9.40 9.55/58 10.05 10.13');
+T('3765',6,1,'Biskra','14.15 14.33/36 14.59 15.22/25 15.52/55 15.56 16.01/04 16.15/18 16.28 16.33 16.35 16.40 16.44/59 17.02 17.08/11 17.12 17.27/30 17.37 17.45');
+T('6753',6,1,'Biskra','1.45 2.03/06 2.29 2.52/3.05 3.32/35 3.36 3.41/44 3.55/58 4.08 4.13 4.15 4.20 4.24/27 4.30 4.36/39 4.40 4.55/58 5.05 5.13');
+T('6755',6,1,'Biskra','19.30 19.48/51 20.14 20.37/40 21.07/10 21.11 21.16/19 21.30/33 21.43 21.48 21.50 21.55 21.59/22.02 22.05 22.11/14 22.15 22.30/33 22.40 22.48');
+T('380',6,-1,'Touggourt','6.30 6.35 6.40/43 6.54 6.55 6.59 7.01/04 7.07 7.10 7.11 7.14 7.21/24 7.31/34 7.37/40 7.41/44 7.59/8.02 8.15 8.29/32 8.43');
+T('384',6,-1,'Touggourt','1.30 1.35 1.40/43 1.54 1.55 1.59 2.01/04 2.07 2.10 2.11 2.14 2.21/24 2.31/34 2.37/40 2.41/44 2.59/3.02 3.15 3.29/32 3.43');
+T('3760',6,-1,'Oumache','7.30 7.48');
+T('3762',6,-1,'Touggourt','7.40 7.48 7.55 8.10 8.11/14 8.20 8.23/26 8.30 8.35 8.37 8.42 8.52/9.01 9.12/15 9.20 9.21/24 9.51/54 10.17/20 10.43/46 11.04');
+T('3764',6,-1,'Touggourt','16.10 16.18 16.25 16.40 16.41/44 16.50 16.53/56 17.00 17.05 17.07 17.12 17.22/25 17.36/45 17.50 17.51 18.18/21 18.44 19.07/10 19.28');
+T('6752',6,-1,'Touggourt','4.00 4.08 4.15 4.30 4.31/42 4.48 4.51/54 4.58 5.03 5.05 5.10 5.20/23 5.34/37 5.42 5.43/46 6.13/16 6.39 7.02/09 7.27');
+T('6754',6,-1,'Touggourt','18.10 18.18 18.25/35 18.50 18.51/55 19.01 19.04/07 19.11 19.16 19.18 19.23 19.33/36 19.47/50 19.55 19.56/59 20.26/43 21.06 21.29/47 22.05');
+// ---- El-Hadjar-Ouest <-> Oued-Zied (f.3 p.2) ----
+[['4951','0.10 0.30'],['4953','3.40 4.00'],['4955','4.32 4.52'],['4957','6.20 6.40'],['4959','15.00 15.20'],['4961','17.55 18.15'],['7951','1.45 2.05'],['7953','9.10 9.30'],['7955','10.40 11.00'],['7957','12.05 12.25'],['7959','16.30 16.50'],['7961','20.40 21.00'],['7963','22.30 22.50']].forEach(x=>T(x[0],4,1,'El-Hadjar-Ouest',x[1]));
+[['4952','4.21 4.41'],['4954','9.43 10.03'],['4956','15.50 16.10'],['4958','16.57 17.17'],['4960','21.50 22.10'],['4962','23.35 23.55'],['7952','1.15 1.35'],['7954','2.55 3.15'],['7956','8.13 8.33'],['7958','11.30 11.50'],['7960','13.50 14.10'],['7962','19.43 20.03']].forEach(x=>T(x[0],4,-1,'Oued-Zied',x[1]));
+// ---- Jijel <-> Sahki-Ahmed (f.3 p.9-12) ----
+T('1451',8,1,'Jijel','6.45 6.56/57 7.06/07 7.16/17 7.25/26 7.35 7.41/42 7.50 7.57/8.02 8.12 8.20/21 8.30/31 8.37');
+T('1453',8,1,'Jijel','9.35 9.46');
+T('1455',8,1,'Jijel','16.35 16.46/47 16.57/58 17.07/08 17.16/17 17.26 17.32/33 17.41 17.48/50 18.00 18.08/09 18.18/19 18.25');
+T('1457',8,1,'Jijel','18.10 18.21');
+T('4451',8,1,'Bazoul','0.05 0.19 0.33 0.45');
+T('4453',8,1,'Bazoul','3.10 3.24 3.38 3.50');
+T('4455',8,1,'Bazoul','5.30 5.44 5.58/59 6.12');
+T('7451',8,1,'Bazoul','1.00 1.14 1.28 1.40/42 - 2.08 - 2.31 - 3.00 3.13/14 3.22');
+T('7453',8,1,'Bazoul','13.40 13.54 14.08 14.20/21 - 14.47 - 15.10/12 - 15.41 15.54/16.08 16.16');
+T('7455',8,1,'Bazoul','18.00 18.14 18.28 18.40/49 - 19.15 - 19.38/39 - 20.08 20.21/24 20.32');
+T('4457',8,1,'Bazoul','7.45 7.59 8.13 8.25/35 - 9.01 - 9.24/25 - 9.54 10.07/08 10.16');
+T('4459',8,1,'Bazoul','8.35 8.49 9.03 9.15');
+T('4461',8,1,'Bazoul','11.30 11.44 11.58 12.10/11 - 12.37 - 13.00/01 - 13.30 13.43/44 13.52');
+T('4463',8,1,'Bazoul','12.00 12.14 12.28 12.40');
+T('4465',8,1,'Bazoul','14.30 14.44 14.58 15.10');
+T('4467',8,1,'Bazoul','17.40 17.54 18.08 18.20');
+T('4469',8,1,'Bazoul','20.00 20.14 20.28 20.40/42 - 21.08 - 21.31/32 - 22.01 22.14/15 22.23');
+T('4471',8,1,'Bazoul','21.00 21.14 21.28 21.40');
+T('7457',8,1,'Bazoul','23.15 23.29 23.43 23.55/57 - 0.23 - 0.46/47 - 1.16 1.29/30 1.38');
+T('1450',8,-1,'Bazoul','6.05 6.16');
+T('1452',8,-1,'Sahki-Ahmed','15.57/59 16.06/07 16.17/18 16.26 16.34/35 16.42 16.50/51 16.58 17.06/07 17.15/16 17.25 17.34 17.45');
+T('1454',8,-1,'Sahki-Ahmed','7.26 7.32/33 7.43/44 7.52 8.00/01 8.08 8.16/17 8.24 8.32/33 8.41/42 8.51/52 9.02/03 9.14');
+T('1456',8,-1,'Bazoul','15.50 16.01');
+T('4450',8,-1,'El-Milia','2.20 2.29 2.41 2.55');
+T('4452',8,-1,'El-Milia','4.10 4.19 4.31 4.45');
+T('4454',8,-1,'Sahki-Ahmed','3.39 3.48/49 4.02 - 4.29/30 - 4.53 - 5.18/21 5.30 5.42 5.56');
+T('7450',8,-1,'Sahki-Ahmed','5.38 5.47/49 6.02 - 6.29/30 - 6.53 - 7.18/30 7.39 7.51 8.05');
+T('7452',8,-1,'Sahki-Ahmed','14.01 14.10/12 14.25 - 14.52/15.15 - 15.38 - 16.03/05 16.14 16.26 16.40');
+T('7454',8,-1,'Sahki-Ahmed','20.02 20.11/22 20.35 - 21.02/33 - 21.56 - 22.21/36 22.45 22.57 23.11');
+T('4456',8,-1,'El-Milia','6.44 6.53 7.05 7.19');
+T('4458',8,-1,'El-Milia','10.00 10.09 10.21 10.35');
+T('4460',8,-1,'Sahki-Ahmed','10.30 10.39/40 10.53 - 11.20/21 - 11.44 - 12.09/12 12.21 12.33 12.47');
+T('4462',8,-1,'El-Milia','13.00 13.09 13.21/22 13.37');
+T('4464',8,-1,'El-Milia','15.30 15.39 15.51 16.05');
+T('4466',8,-1,'Sahki-Ahmed','17.00 17.08/09 17.22 - 17.49/59 - 18.22 - 18.47/48 18.57 19.09 19.23');
+T('4468',8,-1,'El-Milia','19.20 19.29 19.41 19.55');
+T('4470',8,-1,'El-Milia','22.00 22.09 22.21 22.35');
+T('7456',8,-1,'Sahki-Ahmed','23.51 0.00/02 0.15 - 0.42/50 - 1.13 - 1.38/44 1.53 2.04 2.19');
+// ================= Annaba <-> Ramdane-Djamel (f.3 p.3-4, lues apres rotation) =================
+T('451',0,1,'Annaba','5.40 5.49 6.01/09 6.21');
+T('457',0,1,'Annaba','17.30 17.39 17.49/51 18.03');
+T('3401',0,1,'Annaba','0.15 0.21 0.33 0.50/52 1.09 - 1.17 - 1.38/45 2.01 - 2.16');
+T('3403',0,1,'Annaba','12.10 12.16 12.28 12.45 13.02/11 - 13.19 - 13.40/42 13.58 - 14.13');
+T('3405',0,1,'Annaba','15.05 15.11 15.23 15.40 15.57/16.05 - 16.13 - 16.34/52 17.08 - 17.23');
+T('3407',0,1,'Annaba','22.35 22.41 22.53 23.10/12 23.29/30 - 23.38 - 23.59/0.05 0.21 - 0.36');
+T('6401',0,1,'Annaba','9.10 9.16 9.28/41 9.58 10.15 - 10.23 - 10.44/45 11.01 - 11.16');
+T('6403',0,1,'Annaba','16.35 16.41 16.53/54 17.11/35 17.52 - 18.00 - 18.21/23 18.39 - 18.54');
+T('6405',0,1,'Annaba','20.45 20.51 21.03/05 21.22/30 21.47/48 - 21.56 - 22.17/25 22.41 - 22.56');
+T('452',0,-1,'Berrahal','6.40 6.52/54 7.06 7.14');
+T('454',0,-1,'Berrahal','18.15 18.27/28 18.39 18.47');
+T('3402',0,-1,'Ramdane-Djamel','2.45 - 3.01 3.15 - 3.35 - 3.43 4.00 4.17/19 4.31 4.37');
+T('3404',0,-1,'Ramdane-Djamel','7.50 - 8.06 8.20/35 - 8.56 - 9.04 9.21 9.38/40 9.52 9.58');
+T('3406',0,-1,'Ramdane-Djamel','15.00 - 15.16 15.30/33 - 15.54 - 16.02/03 16.20/22 16.39/55 17.07 17.13');
+T('3408',0,-1,'Ramdane-Djamel','19.35 - 19.51 20.05/20 - 20.41 - 20.49/21.06 21.23/27 21.44 21.56 22.02');
+T('3410',0,-1,'Ramdane-Djamel','21.53 - 22.09 22.23/24 - 22.44 - 22.52 23.09/15 23.32 23.44 23.50');
+T('6402',0,-1,'Ramdane-Djamel','1.05 - 1.21 1.35/40 - 2.01 - 2.09 2.26/28 2.45/48 3.00 3.06');
+T('6404',0,-1,'Ramdane-Djamel','12.00 - 12.16 12.30/40 - 13.01 - 13.09/10 13.27/28 13.45/47 13.59 14.05');
+T('6406',0,-1,'Ramdane-Djamel','17.50 - 18.06 18.20/24 - 18.45 - 18.53 19.10 19.27/40 19.52 19.58');
+T('6408',0,-1,'Ramdane-Djamel','23.25 - 23.41 23.55/0.01 - 0.22 - 0.30 0.47/54 1.11 1.23 1.29');
+// ================= Skikda <-> Constantine (f.3 p.5-8, lues apres rotation) =================
+T('301',7,1,'Zirout-Youcef','6.45 6.58/59 7.01/02 7.04 7.06/07 7.10/11 7.16');
+T('303',7,1,'Zirout-Youcef','8.35 8.48/49 8.51/52 8.54 8.56/57 9.00/01 9.06');
+T('305',7,1,'Zirout-Youcef','13.20 13.33/34 13.36/37 13.39 13.41/42 13.45/46 13.51');
+T('307',7,1,'Zirout-Youcef','15.20 15.33/34 15.36/37 15.39 15.41/42 15.45/46 15.51');
+T('309',7,1,'Zirout-Youcef','17.30 17.43/44 17.46/47 17.49 17.51/52 17.55/56 18.01');
+T('317',7,1,'Zirout-Youcef','7.40 7.53/54 7.56/57 7.59 8.01/02 8.05/06 8.11');
+T('319',7,1,'Zirout-Youcef','10.00 10.13/14 10.16/17 10.19 10.21/22 10.25/26 10.31');
+T('321',7,1,'Skikda','17.20 17.26 17.31 17.40/41 17.45 17.49 17.55 18.11 18.23 18.36 18.38 18.40 18.42 18.45 18.50');
+T('323',7,1,'Skikda','18.30 18.36/37 18.44 18.53/54 18.58 19.02/03 19.11/12 19.27/28 19.40/41 19.54/55 19.57 19.59 20.01/02 20.05/06 20.11');
+T('302',7,-1,'Constantine','5.40 5.45/46 5.49/50 5.53 5.55/56 5.58/59 6.11');
+T('304',7,-1,'Constantine','7.45 7.50/51 7.54/55 7.58 8.00/01 8.03/04 8.16');
+T('306',7,-1,'Constantine','12.30 12.35/36 12.39/40 12.43 12.45/46 12.48/49 13.01');
+T('308',7,-1,'Constantine','14.30 14.35/36 14.39/40 14.43 14.45/46 14.48/49 15.01');
+T('312',7,-1,'Constantine','16.30 16.35/36 16.39/40 16.43 16.45/46 16.48/49 17.01');
+T('314',7,-1,'Constantine','17.00 17.04 17.06 17.08 17.10 17.11 17.22 17.32/33 17.46/47 17.53 17.56 18.01/03 18.11 18.17 18.23');
+T('322',7,-1,'Constantine','6.00 6.05/06 6.09/10 6.12 6.13 6.14/15 6.27/28 6.40/41 6.54/55 7.01/02 7.06 7.11/13 7.21 7.29 7.35');
+T('324',7,-1,'Constantine','6.50 6.55/56 6.59/7.00 7.03 7.05/06 7.08/09 7.21');
+T('326',7,-1,'Constantine','7.20 7.24 7.26 7.28 7.30 7.31 7.42 7.53 8.06 8.11 8.14 8.19/21 8.29 8.35 8.41');
+T('328',7,-1,'Constantine','8.40 8.45/46 8.49/50 8.53 8.55/56 8.58/59 9.11');
+T('3301',7,1,'Ramdane-Djamel','0.45 0.53 - 1.07/12 1.40 1.56 - - 2.19/20 - - 2.30');
+T('3303',7,1,'Skikda','6.25 6.35 - 6.54/56 7.04 - 7.18/24 7.52 8.08 - - 8.31/33 - - 8.43');
+T('3305',7,1,'Skikda','19.00 19.10 - 19.29/30 19.38 - 19.52/54 20.22 20.38 - - 21.01/05 - - 21.15');
+T('6301',7,1,'Skikda','9.00 9.10 - 9.29/31 9.39 - 9.53/58 10.26 10.42 - - 11.05/07 - - 11.17');
+T('6303',7,1,'Skikda','14.00 14.10 - 14.29/31 14.39 - 14.53/58 15.26 15.42 - - 16.05/07 - - 16.17');
+T('6305',7,1,'Skikda','22.30 22.40 - 22.59/23.03 23.11 - 23.25/28 23.56 0.12 - - 0.35/37 - - 0.47');
+[['3331','2.58 - - 3.08'],['3333','7.38 - - 7.48'],['3335','14.39 - - 14.49'],['3337','17.00 - - 17.10'],['3339','17.33 - - 17.43'],['3341','22.09 - - 22.19'],['6331','0.03 - - 0.13'],['6333','8.13 - - 8.23'],['6335','20.15 - - 20.25']].forEach(x=>T(x[0],7,1,'Hamma-March.',x[1]));
+T('3302',7,-1,'Constantine','10.20 - - 10.30/31 - - 10.54 11.10 11.31/32 - 11.43 11.50');
+T('3304',7,-1,'Constantine','13.10 - - 13.20/21 - - 13.44 14.00 14.21/23 - 14.34 14.41/44 - 15.00');
+T('3306',7,-1,'Constantine','21.30 - - 21.40/41 - - 22.04 22.20 22.41/43 - 22.54 23.01/02 - 23.18 23.28');
+T('6302',7,-1,'Constantine','1.00 - - 1.10/11 - - 1.34 1.50 2.11 - 2.22 2.29/34 - 2.50 3.00');
+T('6304',7,-1,'Constantine','8.00 - - 8.10/17 - - 8.40 8.56 9.17/19 - 9.30 9.37/38 - 9.54');
+T('6306',7,-1,'Constantine','17.20 - - 17.30/40 - - 18.03 18.19 18.40/50 - 19.01 19.08/31 - 19.47');
+// ================= trains traversant plusieurs lignes =================
+TM('453',[[0,1],[7,1,'Ramdane-Djamel','Constantine']],'Annaba','7.15 7.24 7.34/40 7.52/54 8.08/09 - 8.16/17 - 8.32/34 8.44/45 - 8.58/9.00 9.04 9.08 9.13/14 9.29/30 9.42/43 9.56 9.58 9.59 10.01 10.03 10.08');
+TM('455',[[0,1],[7,1,'Ramdane-Djamel','Constantine']],'Annaba','11.30 11.39 11.49/50 12.02/03 12.17 - 12.23 - 12.37/38 12.48 - 13.00/02 13.06 13.10 13.15 13.30 13.42 13.55 13.57 13.58 14.00 14.02 14.07');
+TM('SA',[[7,1,'Skikda','Ramdane-Djamel'],[0,-1]],'Skikda','6.00 6.06 6.11 6.20/25 - 6.38 6.48/49 - 7.04 - 7.10 7.25/26 7.38/39 7.51 8.00');
+TM('310',[[7,-1,'Constantine','Ramdane-Djamel'],[0,-1]],'Constantine','15.20 15.25 15.27 15.29 15.31 15.32 15.43/44 15.54/55 16.08/09 16.15 16.18 16.23/25 - 16.38/39 16.49/51 - 17.07/08 - 17.15/16 17.32/34 17.46/50 18.02 18.10');
+TM('BA',[[0,1],[7,1,'Ramdane-Djamel','Constantine'],[5,-1,'Constantine']],'Annaba','19.20 19.27 19.37/38 19.48 20.00 - 20.06 - 20.16/18 20.28 - 20.41/43 20.48 20.51 20.57/58 21.16 21.28 21.42 21.44 21.46 21.48 21.50 21.54/22.00 - 22.05 - 22.18/19 22.27 22.34/36 - 22.54/56 23.12 23.26/28 23.37 23.48/51 0.04 0.16/22 0.32 0.38 0.39 0.47 0.54 1.00 1.06 1.11/20');
+TM('TA',[[0,1],[7,1,'Ramdane-Djamel','Constantine'],[5,-1,'Constantine']],'Annaba','20.20 20.27 20.37 20.48 21.00 - 21.06 - 21.16/18 21.28 - 21.41/43 21.48 21.51 21.57/58 22.16 22.28 22.42 22.44 22.46 22.48 22.50 22.54/23.00 - 23.05 - 23.18/19 23.27 23.34/36 - 23.54/55 0.11 0.25/26 0.35 0.46/52 1.05 1.17/21 1.30 1.36 1.37 1.44 1.50 1.56 2.02 2.07/13');
+TM('AB',[[5,1],[7,-1,'Constantine','Ramdane-Djamel'],[0,-1]],'Bordj-Bou-Arreridj','23.30/35 23.40 23.45 23.51 23.56 0.03 0.04 0.10 0.19/24 0.37 0.50/54 1.05 1.14/16 1.30 1.47/48 - 2.10/11 2.18 2.26/27 - 2.40 - 2.45/55 3.00 3.02 3.04 3.06 3.08 3.19 3.30 3.44/46 3.52 3.55 4.00/02 - 4.15 4.25/28 - 4.39 - 4.45 4.57 5.08 5.19 5.28');
+TM('AT',[[5,1],[7,-1,'Constantine','Ramdane-Djamel'],[0,-1]],'Bordj-Bou-Arreridj','0.30/35 0.40 0.45 0.51 0.56 1.03 1.04 1.10 1.19/24 1.37 1.50/54 2.05 2.14/16 2.30 2.47/48 - 3.10/11 3.18 3.26/27 - 3.40 - 3.45/55 4.00 4.02 4.04 4.06 4.08 4.19 4.30 4.44/46 4.52 4.55 5.00/02 - 5.15 5.25/28 - 5.39 - 5.45 5.57 6.08 6.19 6.28');
+// Jijel <-> Constantine via Sahki-Ahmed (remplace les definitions partielles)
+TM('1451',[[8,1],[7,1,'Sahki-Ahmed','Constantine']],'Jijel','6.45 6.56/57 7.06/07 7.16/17 7.25/26 7.35 7.41/42 7.50 7.57/8.02 8.12 8.20/21 8.30/31 8.37 8.41/42 8.47/49 9.04/05 9.17/18 9.31/32 9.34 9.35 9.37 9.39/40 9.45');
+TM('1455',[[8,1],[7,1,'Sahki-Ahmed','Constantine']],'Jijel','16.35 16.46/47 16.57/58 17.07/08 17.16/17 17.26 17.32/33 17.41 17.48/50 18.00 18.08/09 18.18/19 18.25 18.29/30 18.35/36 18.51/52 19.04/05 19.18/19 19.21 19.23 19.25 19.27/28 19.33');
+TM('4457',[[8,1],[7,1,'Sahki-Ahmed','Constantine']],'Bazoul','7.45 7.59 8.13 8.25/35 - 9.01 - 9.24/25 - 9.54 10.07/08 10.16 - 10.30/34 11.02 11.18 - - 11.41/42 - - 11.52');
+TM('4461',[[8,1],[7,1,'Sahki-Ahmed','Constantine']],'Bazoul','11.30 11.44 11.58 12.10/11 - 12.37 - 13.00/01 - 13.30 13.43/44 13.52 - 14.06/10 14.38 14.54 - - 15.17/18 - - 15.28');
+TM('4469',[[8,1],[7,1,'Sahki-Ahmed','Constantine']],'Bazoul','20.00 20.14 20.28 20.40/42 - 21.08 - 21.31/32 - 22.01 22.14/15 22.23 - 22.37/50 23.18 23.34 - - 23.57/0.15 - - 0.25');
+TM('7457',[[8,1],[7,1,'Sahki-Ahmed','Constantine']],'Bazoul','23.15 23.29 23.43 23.55/57 - 0.23 - 0.46/47 - 1.16 1.29/30 1.38 - 1.52/2.05 2.33 2.49 - - 3.12/15 - - 3.25');
+TM('7451',[[8,1],[7,1,'Sahki-Ahmed','Constantine']],'Bazoul','1.00 1.14 1.28 1.40/42 - 2.08 - 2.31 - 3.00 3.13/14 3.22 - 3.36/40 4.08 4.24 - - 4.47/50 - - 5.00');
+TM('7453',[[8,1],[7,1,'Sahki-Ahmed','Constantine']],'Bazoul','13.40 13.54 14.08 14.20/21 - 14.47 - 15.10/12 - 15.41 15.54/16.08 16.16 - 16.30/17.02 17.30 17.46/51 - - 18.14/16 - - 18.26');
+TM('7455',[[8,1],[7,1,'Sahki-Ahmed','El-Arrouche']],'Bazoul','18.00 18.14 18.28 18.40/49 - 19.15 - 19.38/39 - 20.08 20.21/24 20.32 - 20.46');
+TM('1452',[[7,-1,'Constantine','Sahki-Ahmed'],[8,-1]],'Constantine','14.55 15.00 15.02 15.04 15.06 15.07/08 15.20/22 15.32/34 15.47/48 15.54 15.57/59 16.06/07 16.17/18 16.26 16.34/35 16.42 16.50/51 16.58 17.06/07 17.15/16 17.25 17.34 17.45');
+TM('1454',[[7,-1,'Constantine','Sahki-Ahmed'],[8,-1]],'Constantine','6.20 6.25/26 6.29/30 6.33 6.35 6.36/37 6.49/50 7.00/01 7.14/15 7.21/22 7.26 7.32/33 7.43/44 7.52 8.00/01 8.08 8.16/17 8.24 8.32/33 8.41/42 8.51/52 9.02/03 9.14');
+TM('4454',[[7,-1,'Constantine','Sahki-Ahmed'],[8,-1]],'Constantine','2.15 - - 2.25/26 - - 2.49 3.05 3.26/28 - 3.39 3.48/49 4.02 - 4.29/30 - 4.53 - 5.18/21 5.30 5.42 5.56');
+TM('4460',[[7,-1,'Constantine','Sahki-Ahmed'],[8,-1]],'Constantine','9.05 - - 9.15/17 - - 9.40 9.56 10.17/19 - 10.30 10.39/40 10.53 - 11.20/21 - 11.44 - 12.09/12 12.21 12.33 12.47');
+TM('4466',[[7,-1,'Constantine','Sahki-Ahmed'],[8,-1]],'Constantine','15.35 - - 15.45/47 - - 16.10 16.26 16.47/49 - 17.00 17.08/09 17.22 - 17.49/59 - 18.22 - 18.47/48 18.57 19.09 19.23');
+TM('7450',[[7,-1,'Constantine','Sahki-Ahmed'],[8,-1]],'Constantine','4.15 - - 4.25/26 - - 4.49 5.05 5.26/27 - 5.38 5.47/49 6.02 - 6.29/30 - 6.53 - 7.18/30 7.39 7.51 8.05');
+TM('7452',[[7,-1,'Constantine','Sahki-Ahmed'],[8,-1]],'Constantine','12.00 - - 12.10/11 - - 12.34 12.50 13.11/50 - 14.01 14.10/12 14.25 - 14.52/15.15 - 15.38 - 16.03/05 16.14 16.26 16.40');
+TM('7454',[[7,-1,'Constantine','Sahki-Ahmed'],[8,-1]],'Constantine','18.35 - - 18.45/47 - - 19.10 19.26 19.47/51 - 20.02 20.11/22 20.35 - 21.02/33 - 21.56 - 22.21/36 22.45 22.57 23.11');
+TM('7456',[[7,-1,'El-Arrouche','Sahki-Ahmed'],[8,-1]],'El-Arrouche','23.40 - 23.51 0.00/02 0.15 - 0.42/50 - 1.13 - 1.38/44 1.53 2.04 2.19');
+// ---- Ain M'Lila <-> Sidi-Yahia (photos livret f.2 + horaires p.17) ----
+TM('CT',[[5,-1,'Constantine','El-Gourzi'],[1,1,'El-Gourzi',"Ain M'Lila"],[9,1]],'Constantine','16.00 16.03 16.06/07 16.15 16.19/20 16.27/28 16.34/35 16.45/47 17.16/17 17.42/44 18.07/08 19.22/23');
+TM('3502/3503',[[5,-1,'El-Khroub','El-Gourzi'],[1,1,'El-Gourzi',"Ain M'Lila"],[9,1]],'El-Khroub','9.20 9.36 9.47/49 10.02/04 10.39 11.10/12 11.40 12.56/58');
+TM('TC',[[9,-1],[1,-1,"Ain M'Lila",'El-Gourzi'],[5,1,'El-Gourzi','Constantine']],'Sidi-Yahia','6.08/09 7.23/24 7.46/47 8.13/14 8.41/43 8.53/54 9.01/02 9.10/11 9.15 9.23/24 9.27 9.29');
+TM('3504/3505',[[9,-1],[1,-1,"Ain M'Lila",'El-Gourzi'],[5,1,'El-Gourzi','El-Khroub']],'Sidi-Yahia','21.40/42 22.57 23.23/24 23.53 0.25/27 0.39/40 0.50 1.04');
+// ---- Ouled-Rahmoun <-> Constantine : locaux et machines C (f.2 p.4 et p.7), + machines C Constantine-Hamma (f.3 p.8) ----
+[['3081','El-Khroub','1.52 - 2.06/07 - 2.14'],['3083','El-Khroub','8.42 - 8.56/57 - 9.04'],['3085','El-Khroub','9.55 - 10.09/10 - 10.17'],['3087','El-Khroub','12.45 - 12.59/13.00 - 13.07'],['3089','El-Khroub','15.05 - 15.19/20 - 15.27'],['3091','Sidi-Mabrouk','15.53/55 - 16.02'],['3093','Ouled-Rahmoun','18.30 18.45/46 - 19.00/01'],['3095','El-Khroub','21.05 - 21.19/20 - 21.27'],['6081','El-Khroub','0.37 - 0.51/52 - 0.59'],['6083','El-Khroub','3.52 - 4.06/07 - 4.14'],['6085','El-Khroub','7.37 - 7.51/52 - 7.59'],['6087','El-Khroub','11.37 - 11.51/52 - 11.59'],['6089','El-Khroub','16.55 - 17.09/10 - 17.17'],['6091','El-Khroub','18.12 - 18.26/27 - 18.34'],['C301','El-Khroub','1.15 - 1.27'],['C303','Sidi-Mabrouk','2.22 - 2.27'],['C305','El-Khroub','3.00 - 3.12'],['C307','Sidi-Mabrouk','6.58 - 7.03'],['C309','El-Khroub','9.30 - 9.42'],['C311','El-Khroub','12.30 - 12.42'],['C313','Sidi-Mabrouk','13.54 - 13.59'],['C315','El-Khroub','16.08 - 16.20'],['C317','Sidi-Mabrouk','16.39 - 16.44'],['C319','Sidi-Mabrouk','21.35 - 21.40'],['C321','El-Khroub','21.45 - 21.57'],['C331','El-Khroub','1.30 - 1.42'],['C333','El-Khroub','4.10 - 4.22'],['C335','El-Khroub','5.25 - 5.37'],['C337','Sidi-Mabrouk','7.22 - 7.27'],['C339','El-Khroub','12.15 - 12.27'],['C341','Sidi-Mabrouk','19.23 - 19.28'],['C343','El-Khroub','19.20 - 19.32'],['C345','Sidi-Mabrouk','23.19 - 23.24']].forEach(x=>T(x[0],5,1,x[1],x[2]));
+[['3082','Constantine','0.30 - 0.37/40 - 0.54'],['3084','Constantine','2.31 - 2.38/39 - 2.53'],['3086','Constantine','8.55 - 9.02/04 - 9.18'],['3088','Constantine','11.55 - 12.02/03 - 12.17'],['3090','Constantine','15.30 - 15.37/38 - 15.52'],['3092','Sidi-Mabrouk','17.03/05 - 17.19/20 17.31'],['3094','Constantine','17.15 - 17.22/23'],['3096','Constantine','21.17 - 21.24/25 - 21.39'],['6082','Constantine','0.48 - 0.55/56 - 1.10'],['6084','Constantine','3.27 - 3.34/35 - 3.49'],['6086','Constantine','5.01 - 5.08/09 - 5.23'],['6088','Constantine','11.18 - 11.25/26 - 11.40'],['6090','Constantine','18.36 - 18.43/45 - 18.59'],['C300','Sidi-Mabrouk','1.11 - 1.23'],['C302','Sidi-Mabrouk','4.30 - 4.42'],['C304','Sidi-Mabrouk','8.16 - 8.28'],['C306','Sidi-Mabrouk','8.50 - 9.02'],['C308','Sidi-Mabrouk','9.25 - 9.37'],['C310','Sidi-Mabrouk','11.50 - 12.02'],['C312','Sidi-Mabrouk','14.15 - 14.27'],['C314','Sidi-Mabrouk','20.15 - 20.27'],['C330','Sidi-Mabrouk','3.00 - 3.12'],['C332','Sidi-Mabrouk','7.00 - 7.12'],['C334','Sidi-Mabrouk','11.00 - 11.12'],['C336','Sidi-Mabrouk','15.53 - 16.05'],['C338','Constantine','16.25 - 16.32'],['C340','Sidi-Mabrouk','17.30 - 17.42'],['C342','Sidi-Mabrouk','23.55 - 0.07']].forEach(x=>T(x[0],5,-1,x[1],x[2]));
+T('3332',7,-1,'Constantine','16.05 - - 16.15');
+[['C350','2.28 - - 2.38'],['C352','7.05 - - 7.15'],['C354','14.00 - - 14.10'],['C356','16.45 - - 16.55'],['C358','21.42 - - 21.52'],['C370','7.30 - - 7.40'],['C372','19.30 - - 19.40'],['C374','23.25 - - 23.35']].forEach(x=>T(x[0],7,-1,'Constantine',x[1]));
+
+/* ===== توقيت فتح/غلق المحطات (feuillets annexes) - قابل للتعديل ===== */
+// c = بداية الغلق ، r = استئناف الخدمة ، c24 = مغلقة دائمًا
+const SVC0={"Ghasrou":{c:"16:00",r:"08:00"},"Barika":{c:"04:30",r:"12:30"},"Ouled-Zouai":{c:"16:00",r:"08:00"},"Ain-Yagout":{c:"22:00",r:"06:00"},"Djerma":{c:"21:40",r:"05:40"},"El-Outaya":{c:"21:00",r:"05:00"},"El-Meghair":{c:"21:20",r:"05:20"},"Djamaa":{c:"19:00",r:"11:00"},"Tamalous":{c:"20:30",r:"05:30"},"Sidi-Mezghiche":{c:"15:00",r:"07:00"},"Hammoudi-Krouma":{c:"16:00",r:"08:00"},"Zit-Emba":{c24:1},"Oum-El-Bouaghi":{c24:1},"Sidi-Abdelaziz":{c24:1},"Ain-Kechera":{c24:1},"Bir-El-Arch":{c24:1}};
+
+/* ===== لغة ===== */
+const I={ar:{loginT:"تسجيل الدخول",uid:"رقم التعريف مثل 026905E",uname:"الاسم (اختياري)",enter:"دخول",loginNote:"الحساب محفوظ على هذا الجهاز فقط (لا يوجد خادم).",logout:"خروج",tTrip:"الرحلة",tHours:"الساعات",tRep:"تقارير",tData:"بيانات",trainNo:"رقم القطار",go:"بحث",cur:"المحطة الحالية",next:"المحطة التالية",maxsp:"السرعة القصوى",auto:"حسب الجدول",zones:"السرعات في المقطع القادم (حسب PK)",tacho:"عدّاد السرعة (GPS)",sched:"جدول المحطات",date:"التاريخ",t2:"العودة: EV-رقم القطار (على متن قطار مسافرين) أو EV-CAR (سيارة أجرة)",hs:"بداية العمل (قبل الانطلاق بساعة)",he:"نهاية العمل",calc:"احسب",hnote:"افتراض: 8 ساعات عادية + حتى 4 ساعات إضافية. الإضافي: 50% (05:00-13:00)، 75% (13:00-21:00)، 100% (21:00-05:00). الجمعة: كل الساعات المحتسبة بحد أقصى 12 س. راجع القاعدة الرسمية.",save:"حفظ",copyAll:"نسخ كل التقارير",phones:"أرقام هواتف المحطات",svcT:"توقيت فتح وغلق المحطات (JSON قابل للتعديل)",reset:"استعادة الافتراضي",warn:"القيم منقولة من صور دفتر السير والجداول وقد تحتوي أخطاء. راجعها مع الدفتر الرسمي؛ التطبيق مساعد ولا يغني عن عدّاد القطار والإشارات.",phone:"رقم الهاتف",rtxt:"اكتب التقرير أو الحادث...",notFound:"القطار غير موجود في الجداول المضافة",freight:"بضائع",pass:"ركاب",open:"مفتوحة",closed:"مغلقة",early:"تقدّم",late:"تأخير",min:"د",noSp:"السرعة غير مُدخلة. راجع الدفتر",from:"من",to:"إلى",dist:"المسافة",km:"كم",eta:"الوصول المقرر",rt:["حادث","ملاحظة","تقرير"],tot:"مدة العمل/التنقل",nor:"ساعات عادية",ovr:"ساعات إضافية محتسبة",eq:"المعادل المدفوع للإضافي",fri:"الجمعة: ساعات محتسبة (حتى 12 س)",none:"لا شيء",term:"آخر محطة",start:"قطار",stop:"إيقاف",run:"تشغيل",dirL:"الاتجاه",need:"أدخل رقم القطار أولًا",saved:"تم الحفظ",bad:"JSON غير صالح",saveDay:'حفظ اليوم في السجل',reserveT:'يوم احتياطي (04-12 / 12-20 / 20-04)',otH:'ساعات إضافية (0 إلى 4)',saveRes:'حفظ يوم الاحتياط',logT:'سجل الأيام والمجموع الشهري',days:'أيام الرحلات',resDays:'أيام الاحتياط',trvH:'ساعات التنقل (انطلاق ← وصول القطار)',usersT:'قائمة العمال (JSON: رقم ← الاسم واللقب)',badId:'الصيغة: 6 أرقام + حرف مثل 026905E',callQ:'هل تريد الاتصال بهذه المحطة؟',callBtn:'📞 اتصال',cancel:'إلغاء',editTimes:'تعديل التوقيت (مخفي ويُستعمل لحساب الإضافي فقط)',hd2:'تاريخ نهاية العمل (إن كان بعد يوم أو أكثر)',svT:'مرجع الفتح والغلق',cessT:'بداية الغلق',resT:'استئناف الخدمة',h24:'مغلقة على مدار 24 ساعة',refL:'المرجع',noHrs:'لا توجد ساعات محددة',closeB:'إغلاق',retNeed:'أدخل العودة: EV-رقم القطار أو EV-CAR ثم نهاية العمل',retBad:'قطار العودة غير موجود: اكتب EV-رقم القطار أو EV-CAR',retL:'العودة',unknownId:'رقم غير مسجل في القائمة',approx:'سرعات هذا الخط تقريبية، راجع الدفتر'},
+fr:{loginT:"Connexion",uid:"Matricule, ex. 026905E",uname:"Nom (facultatif)",enter:"Entrer",loginNote:"Compte enregistré sur cet appareil uniquement (pas de serveur).",logout:"Quitter",tTrip:"Trajet",tHours:"Heures",tRep:"Rapports",tData:"Données",trainNo:"Numéro du train",go:"Chercher",cur:"Gare actuelle",next:"Gare suivante",maxsp:"Vitesse max",auto:"Selon horaire",zones:"Vitesses sur la section suivante (par PK)",tacho:"Tachymètre (GPS)",sched:"Horaires des gares",date:"Date",t2:"Retour : EV-n° du train (voyageurs) ou EV-CAR (taxi)",hs:"Début de service (1 h avant départ)",he:"Fin de service",calc:"Calculer",hnote:"Hypothèse : 8 h normales + jusqu'à 4 h supplémentaires. Majoration : 50% (05h-13h), 75% (13h-21h), 100% (21h-05h). Vendredi : toutes les heures comptées, plafond 12 h. Vérifier la règle officielle.",save:"Enregistrer",copyAll:"Copier tous les rapports",phones:"Téléphones des gares",svcT:"Ouverture/fermeture des gares (JSON modifiable)",reset:"Valeurs par défaut",warn:"Valeurs relevées sur les images du livret et des horaires, erreurs possibles. Vérifier avec le livret officiel ; l'appli ne remplace ni le tachymètre ni la signalisation.",phone:"Numéro de téléphone",rtxt:"Écrire le rapport ou l'incident...",notFound:"Train absent des horaires ajoutés",freight:"Marchandises",pass:"Voyageurs",open:"Ouverte",closed:"Fermée",early:"Avance",late:"Retard",min:"min",noSp:"Vitesse non saisie. Voir le livret",from:"de",to:"à",dist:"Distance",km:"km",eta:"Arrivée prévue",rt:["Incident","Remarque","Rapport"],tot:"Durée de service/déplacement",nor:"Heures normales",ovr:"Heures supp. comptées",eq:"Équivalent payé des supp.",fri:"Vendredi : heures comptées (max 12 h)",none:"Aucun",term:"Terminus",start:"Train",stop:"Arrêter",run:"Activer",dirL:"Sens",need:"Saisir d'abord le numéro du train",saved:"Enregistré",bad:"JSON invalide",saveDay:'Enregistrer la journée',reserveT:'Journée de réserve (04-12 / 12-20 / 20-04)',otH:'Heures supp. (0 à 4)',saveRes:'Enregistrer la réserve',logT:'Journal et total mensuel',days:'Jours de trajet',resDays:'Jours de réserve',trvH:'Heures de déplacement (départ → arrivée)',usersT:'Liste des agents (JSON : matricule → nom, prénom)',badId:'Format : 6 chiffres + lettre, ex. 026905E',callQ:'Appeler cette gare ?',callBtn:'📞 Appeler',cancel:'Annuler',editTimes:"Modifier les horaires (masqués, servent au calcul des heures supp.)",hd2:'Date de fin de service (si un jour ou plus après)',svT:'Référence ouverture/fermeture',cessT:'Début de fermeture',resT:'Reprise du service',h24:'Fermée 24 h/24',refL:'Référence',noHrs:'Aucun horaire défini',closeB:'Fermer',retNeed:'Saisir le retour : EV-n° du train ou EV-CAR, puis la fin de service',retBad:'Train de retour introuvable : EV-n° du train ou EV-CAR',retL:'Retour',unknownId:'Matricule absent de la liste',approx:'Vitesses approximatives sur cette ligne, vérifier le livret'}};
+
+/* ===== حالة ===== */
+const $=id=>document.getElementById(id);
+const KEY="rd-v3";
+let S={user:null,name:"",lang:"ar",reports:[],phones:{},svc:null,users:{},log:[]};
+try{S=Object.assign(S,JSON.parse(localStorage.getItem(KEY)||"{}"))}catch(e){}
+const PH0={"Zirout-Youcef":"0770.68.92.96","Didouche-Mourad":"0770.68.99.48","Hamma-Voy.":"0770.69.00.62","Constantine":"0770.69.00.30","Sidi-Mabrouk":"0770.69.00.61","El-Khroub":"0770.69.00.64","Ouled-Rahmoun":"0770.69.03.05","El-Gourzi":"0770.69.00.65","Ain M'Lila":"0770.69.01.38","Telerghma":"0770.69.03.83","Tadjenanet":"0770.68.98.77","El-Eulma":"0770.69.15.77","Guidjel":"0770.69.15.79","Setif":"0770.69.14.07","El-Hammam":"0770.69.05.80","Ain-Beida":"0770.69.03.85","Skikda":"0770.68.79.33","Hammoudi-Krouma":"0770.68.75.20","Ramdane-Djamel":"0770.68.75.31","Sahki-Ahmed":"0770.68.75.30","El-Arrouche":"0770.68.93.24","Ain-Bouziane":"0770.68.93.20","Ouled-Zouai":"0770.68.98.96","Ain-Yagout":"0770.68.98.57","Djerma":"0770.68.98.41","Batna":"0770.68.98.33","Ain-Touta":"0770.68.98.36","Ghasrou":"0770.68.98.36","Barika":"0770.68.98.13","Seggana":"0770.68.97.91","Berhoum":"0770.68.76.65","El-Kantara":"0770.68.90.45","El-Outaya":"0770.68.75.17","Biskra":"0770.69.09.88","El-Meghair":"0770.68.88.05","Djamaa":"0770.68.90.28","Touggourt":"0770.68.90.30","Jijel":"0770.68.94.26","Bazoul P1":"0770.68.94.33","Bazoul P2":"0770.68.93.99","Sidi-Abdelaziz":"0770.68.98.55","El-Ancer":"0770.68.94.40","El-Milia":"0770.68.94.47","Tamalous":"0770.68.93.49","Sidi-Mezghiche":"0770.68.92.72","Em-Jez-Edchiche":"0770.68.93.94"};
+const SYM={};
+[['G',"Bordj-Bou-Arreridj Setif El-Khroub Ain-Abid El-Gourzi Ain_M'Lila Ouled-Zouai Ain-Yagout Djerma Batna Ain-Touta El-Kantara El-Outaya Biskra El-Meghair Djamaa Touggourt Ghasrou M'Sila Annaba Ramdane-Djamel El-Hadjar-Ouest Jijel El-Milia Em-Jez-Edchiche Skikda Constantine Oum-El-Bouaghi Sidi-Yahia"],['H',"El-Anasser Bel-Imour Ouled-Yelles Mesloug Guidjel Tadjenanet Oued-Hamimime Chalets-des-Pins Bou-Nouara OAIC-Khroub Fesdis Ghadjati Tamarins Maafa-Village Maafa El-Kantara-Gorges Membaa-El-Ghezal Dar-Arous N'Sigha Tenedla El-Arfiane El-Melah Sidi-Amrane Ain-Choucha Meggarine Selmane Makessa Oued-Hamimime_(Annaba) Oued-Deb Settara Ain-Rouibah Guinguita Saf-Saf Salah-Bouchaour Didouche-Mourad Kef-Salah Hamma-Voy. Bekeira Ain-Fakroun Ain-Beida"],['HCG',"Oumache Bir-Djefeir Stil Ourir Sidi-Khelil El-Berd Tamerna Moggar"],['VD',"Berrahal Hadjar-Soud Zit-Emba Ras-El-Ma"]].forEach(([c,s])=>s.split(' ').forEach(n=>{SYM[n.replace(/_/g,' ')]=c}));
+const sy=n=>{const c=SYM[n];if(!c)return '<i class="sy sp"></i>';return c==='G'?'<i class="sg"></i>':'<b class="sy">'+c+'</b>'};
+if(!S.svc)S.svc=JSON.parse(JSON.stringify(SVC0));
+S.phones=Object.assign({},PH0,S.phones);
+function nm(n){return n==="Bazoul"?(tr&&isFreight(tr.no)?"Bazoul (Poste 1)":"Bazoul (Poste 2)"):n}
+function phoneFor(n){return n==="Bazoul"?(tr&&isFreight(tr.no)?S.phones["Bazoul P1"]:S.phones["Bazoul P2"]):S.phones[n]}
+const SVN={"Ghasrou":"Hors horaires : service assuré par le chef de circulation ou le mécanicien (AG S5N°1)","Barika":"Hors horaires : service assuré par le chef de circulation ou le mécanicien (AG S5N°1)","Ouled-Zouai":"Cessation par Ain-Yagout du 3355 et par Ain M'Lila du 3386, au plus tôt 16h00","Ain-Yagout":"Cessation par Batna du 3357 et par Ain M'Lila du 3388, au plus tôt 22h00","Djerma":"Cessation par Batna du 3357 et par Ain-Yagout du 3388, au plus tôt 21h40","El-Outaya":"Cessation par Biskra du 3355 et par El-Kantara du B28, au plus tôt 21h00","El-Meghair":"Cessation après 3763 à Sidi-Khelil et B28 à Biskra, au plus tôt 21h20","Djamaa":"Cessation après 3763 à Touggourt et B28 à El-Meghair, au plus tôt 19h00","Tamalous":"Cessation par Em-Jez-Edchiche du 4461 et par El-Milia du 1452, au plus tôt 20h30","Sidi-Mezghiche":"Cessation par Em-Jez-Edchiche du 4461 et par Tamalous du 7452, au plus tôt 15h00","Hammoudi-Krouma":"Cessation par Ramdane-Djamel du 6303 (s'il y a lieu) et par Skikda du 3304, au plus tôt 16h00","Zit-Emba":"Gare fermée au service de sécurité (H24)","Sidi-Abdelaziz":"Gare fermée au service de sécurité (H24)","Ain-Kechera":"Gare fermée au service de sécurité (H24)","Bir-El-Arch":"Gare fermée au service de sécurité (avis S1N°1(10) du 03/01/2010)","Oum-El-Bouaghi":"Gare fermée au service de sécurité depuis le 09/06/2021 (H24)"};
+const SVO={"Tadjenanet":"Transformée en halte (avis S4 n°2(21) du 27/01/2021)","Guidjel":"Transformée en halte (avis S4 n°2(21) du 27/01/2021)"};
+Object.keys(SVN).forEach(k=>{if(S.svc[k]&&!S.svc[k].n)S.svc[k].n=SVN[k]});
+Object.keys(SVO).forEach(k=>{if(!S.svc[k])S.svc[k]={n:SVO[k]}});
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}};
+const t=k=>I[S.lang][k]||k;
+let tr=null,cur=null,cat=0,watch=null,tab="trip";
+const ord=()=>tr?tr.ordr:[];
+const fmt=k=>{const m=Math.round(k*1000);return Math.floor(m/1000)+"+"+String(m%1000).padStart(3,"0")};
+const hm=m=>{m=((Math.round(m)%1440)+1440)%1440;return String(m/60|0).padStart(2,"0")+":"+String(m%60).padStart(2,"0")};
+const nowM=()=>{const d=new Date();return d.getHours()*60+d.getMinutes()+d.getSeconds()/60};
+const isFreight=n=>/^\d+$/.test(n)&&+n>=3000||/^C\d/.test(n);
+const jx=(n,li)=>LINES.map((l,i)=>{const s=l.st.find(s=>s[0]===n);return s&&i!==li?l.n+": PK "+fmt(s[1]):null}).filter(Boolean).join(" · ");
+const catI=()=>isFreight(tr.no)?2:cat;
+const val=z=>{const v=[z[2],z[3+catI()]].filter(x=>x!=null);return v.length?Math.min(...v):null};
+function zonesIn(a,b,li,dir){const l=LINES[li];if(!(l.both||dir>0))return[];const lo=Math.min(a,b),hi=Math.max(a,b),zz=(dir<0&&l.zr)?l.zr:l.z;return zz.filter(z=>z[1]>lo&&z[0]<hi).sort((x,y)=>dir*(x[0]-y[0]))}
+function svcState(n){const s=S.svc[n];if(!s)return null;if(s.c24)return{closed:true};if(!s.c)return null;const p=x=>{const[h,m]=x.split(":").map(Number);return h*60+m},c=p(s.c),r=p(s.r),m=nowM();return{closed:c>r?(m>=c||m<r):(m>=c&&m<r)}}
+const stop=n=>tr.stops.find(x=>x.s===n);
+
+/* ===== واجهة ===== */
+function applyLang(){
+  document.documentElement.lang=S.lang;document.documentElement.dir=S.lang==="ar"?"rtl":"ltr";
+  document.querySelectorAll("[data-i]").forEach(e=>e.textContent=t(e.dataset.i));
+  document.querySelectorAll("[data-p]").forEach(e=>e.placeholder=t(e.dataset.p));
+  $("lang").textContent=S.lang==="ar"?"FR":"عربي";
+  $("rtype").innerHTML=t("rt").map((x,i)=>`<option value="${i}">${x}</option>`).join("");
+  $("gps").textContent=watch==null?t("run"):t("stop");
+  if(tr)drawTrip();drawRep();drawPhones();
+}
+function showTab(x){tab=x;["trip","hours","rep","data"].forEach(k=>$(k).hidden=k!==x);document.querySelectorAll("nav button").forEach(b=>b.setAttribute("aria-selected",b.dataset.t===x));if(x==="hours"){prefillHours();showDay();drawLog()}}
+function boot(){
+  $("login").hidden=!!S.user;$("app").hidden=!S.user;
+  if(S.user){const u=S.users[S.user];$("who").textContent=(u?u.n+" "+u.l:(S.name||""))+" · "+S.user;$("svcj").value=JSON.stringify(S.svc,null,1);$("usrj").value=JSON.stringify(S.users,null,1);drawLog()}
+  applyLang();if(S.user)showTab(tab);
+}
+$("lgo").onclick=()=>{const v=$("uid").value.trim().toUpperCase();
+  if(!/^\d{6}[A-Z]$/.test(v)){$("lerr").textContent=t("badId");return}
+  if(Object.keys(S.users).length&&!S.users[v]){$("lerr").textContent=t("unknownId");return}
+  $("lerr").textContent="";S.user=v;S.name=$("uname").value.trim();save();boot()};
+$("out").onclick=()=>{S.user=null;save();tr=null;$("tinfo").hidden=true;boot()};
+const flip=()=>{S.lang=S.lang==="ar"?"fr":"ar";save();applyLang()};
+$("lang").onclick=flip;$("lang0").onclick=flip;
+document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>showTab(b.dataset.t));
+
+/* ===== الرحلة ===== */
+function loadTrain(){
+  const n=$("tno").value.trim().toUpperCase();
+  if(!TR[n]){$("tmsg").textContent=t("notFound");$("tinfo").hidden=true;tr=null;return}
+  tr=TR[n];$("tmsg").textContent="";$("tinfo").hidden=false;cat=0;autoPick();drawTrip();$("hs").value="";$("he").value="";$("t2").value="";prefillHours();showDay();
+}
+function autoPick(){
+  const o=ord(),m=nowM();let best=0;
+  tr.stops.forEach(s=>{let d=s.d;const diff=(m-d+1440+720)%1440-720;if(diff>=0){best=o.indexOf(s.s)}});
+  cur=Math.max(0,best);
+}
+function drawTrip(){
+  if(!tr)return;
+  const o=ord(),l=LINES[tr.li],a=tr.stops[0].s,b=tr.stops[tr.stops.length-1].s;
+  $("tt").textContent=t("start")+" "+tr.no+" · "+a+" → "+b;
+  $("tr").textContent=[...new Set(o.map(x=>LINES[x[2]].n))].join(" + ")+" · "+(isFreight(tr.no)?t("freight"):t("pass"))+(o.some(x=>LINES[x[2]].approx)?" · ⚠ "+t("approx"):"");
+  $("cat").innerHTML=isFreight(tr.no)?"":[0,1].map(i=>`<button data-c="${i}" class="${i===cat?"on":""}">${["≥ 9/10","< 9/10"][i]}</button>`).join("");
+  $("stations").innerHTML=o.map((s,i)=>{const p=stop(s[0]),st=svcState(s[0]);
+    const tm=p?hm(p.a)+(p.d!==p.a?" / "+hm(p.d):""):"—";
+    return`<div class="st ${i===cur?"here":""}" data-i="${i}"><span class="tm">${tm}</span><span class="n">${sy(s[0])}${nm(s[0])}<small class="mute">PK ${fmt(s[1])}${jx(s[0],s[2])?" · "+jx(s[0],s[2]):""}</small></span>${st?`<span class="tag ${st.closed?"bad":"ok"}">${st.closed?t("closed"):t("open")}</span>`:""}</div>`}).join("");
+  info();
+}
+function info(){
+  const o=ord();if(cur==null||cur>=o.length)cur=0;
+  const s=o[cur],n=o[cur+1],p=stop(s[0]),m=nowM();
+  $("here").innerHTML=sy(s[0])+nm(s[0])+" · PK "+fmt(s[1]);
+  $("jx").textContent=jx(s[0],s[2]);
+  const st=svcState(s[0]),sv=S.svc[s[0]];$("svc").innerHTML=(st||sv||SVR[s[0]])?`<button class="tag ${st?(st.closed?"bad":"ok"):"warn"}" id="svbtn">${st?(st.closed?t("closed"):t("open")):"ⓘ"} ⓘ</button>`:"";
+  const ph=phoneFor(s[0]);$("ph").innerHTML=ph?`<a href="tel:${ph}">📞 ${ph}</a>`:"";
+  if(p){const diff=Math.round((m-p.d+1440+720)%1440-720);$("dl").textContent=diff>0?t("late")+" +"+diff+" "+t("min"):diff<0?t("early")+" "+(-diff)+" "+t("min"):"0";}
+  else $("dl").textContent="";
+  if(!n){$("nx").textContent=t("term");$("nd").textContent="";$("lim").textContent="--";$("zones").innerHTML="";return}
+  $("nx").innerHTML=sy(n[0])+nm(n[0])+" · PK "+fmt(n[1]);
+  const nl=n[2],ndr=n[3],sk=(LINES[nl].st.find(x=>x[0]===s[0])||s)[1];
+  const nxt=tr.stops.filter(x=>ord().indexOf(x.s)>cur)[0];
+  $("nd").textContent=t("dist")+": "+Math.abs(n[1]-sk).toFixed(1)+" "+t("km")+(nxt?" · "+t("eta")+" "+nxt.s+" "+hm(nxt.a):"");
+  const zs=zonesIn(sk,n[1],nl,ndr),v=zs.length?val(zs[0]):null;
+  $("lim").textContent=v==null?"--":v;window.curLimit=zs.length?Math.max(...zs.map(val).filter(x=>x!=null),0):0;
+  $("zones").innerHTML=zs.length?zs.map(z=>{const a=ndr>0?Math.max(z[0],sk):Math.min(z[1],sk),b=ndr>0?Math.min(z[1],n[1]):Math.max(z[0],n[1]),x=val(z);return`<div class="z"><span>${fmt(a)} → ${fmt(b)}</span><b>${x==null?"--":x}</b></div>`}).join(""):`<p class="mute">${t("noSp")}</p>`;
+}
+$("tgo").onclick=loadTrain;$("tno").onkeydown=e=>{if(e.key==="Enter")loadTrain()};
+$("stations").onclick=e=>{const r=e.target.closest(".st");if(!r)return;cur=+r.dataset.i;drawTrip();const s=ord()[cur],ph=phoneFor(s[0]);if(ph)openSheet(nm(s[0]),ph)};
+function openSheet(name,num){$("sh-name").textContent=name;$("sh-num").textContent=num;$("sh-call").dataset.n=num;$("sheet").hidden=false}
+$("sh-x").onclick=()=>{$("sheet").hidden=true};
+$("sheet").onclick=e=>{if(e.target.id==="sheet")$("sheet").hidden=true};
+$("sh-call").onclick=()=>{const n=$("sh-call").dataset.n;$("sheet").hidden=true;location.href="tel:"+n.replace(/[^0-9+]/g,"")};
+$("cat").onclick=e=>{const b=e.target.closest("button");if(!b)return;cat=+b.dataset.c;drawTrip()};
+$("prv").onclick=()=>{if(cur>0){cur--;drawTrip()}};
+$("nxt").onclick=()=>{if(cur<ord().length-1){cur++;drawTrip()}};
+$("auto").onclick=()=>{autoPick();drawTrip()};
+$("gps").onclick=()=>{
+  if(!navigator.geolocation){alert("GPS ✗");return}
+  if(watch!=null){navigator.geolocation.clearWatch(watch);watch=null;$("spd").textContent="--";$("gb").style.width="0";$("gps").textContent=t("run");return}
+  watch=navigator.geolocation.watchPosition(p=>{
+    const v=p.coords.speed==null?null:p.coords.speed*3.6;$("spd").textContent=v==null?"--":Math.round(v);
+    const mx=Math.max(160,window.curLimit||0);$("gb").style.width=Math.min(100,(v||0)/mx*100)+"%";
+    const L=window.curLimit||0;$("gb").style.background=L&&v>L?"var(--red)":"var(--green)";
+    $("gl").hidden=!L;if(L)$("gl").style.insetInlineStart=(L/mx*100)+"%";
+  },()=>{$("spd").textContent="✗";watch=null;$("gps").textContent=t("run")},{enableHighAccuracy:true,maximumAge:0});
+  $("gps").textContent=t("stop");
+};
+
+/* ===== الساعات ===== */
+function prefillHours(){
+  if(!$("hd").value)$("hd").value=new Date().toISOString().slice(0,10);
+  if(tr&&!$("hs").value){$("hs").value=hm(tr.stops[0].d-60);$("he").value=hm(tr.stops[tr.stops.length-1].a)}
+}
+const band=m=>{m=((m%1440)+1440)%1440;return m>=300&&m<780?.5:m>=780&&m<1260?.75:1};
+const hh=m=>(m/60).toFixed(2).replace(/\.00$/,"")+" h";
+$("t2").oninput=()=>{const x=TR[$("t2").value.trim().toUpperCase()];if(x)$("he").value=hm(x.stops[x.stops.length-1].a);showDay()};
+function calcOld(){
+  const[sh,sm]=($("hs").value||"0:0").split(":").map(Number),[eh,em]=($("he").value||"0:0").split(":").map(Number);
+  if(!$("hs").value||!$("he").value){$("hout").textContent=t("need");return}
+  const s=sh*60+sm;let e=eh*60+em;if(e<=s)e+=1440;
+  const total=e-s,fri=new Date($("hd").value+"T12:00").getDay()===5;
+  let h="";
+  const kv=(a,b)=>`<div class="kv"><span>${a}</span><b>${b}</b></div>`;
+  h+=kv(t("tot"),hhmm(total)+" ("+hm(s)+" → "+hm(e)+")");
+  if(fri){h+=kv(t("fri"),hhmm(Math.min(total,720)))}
+  else{
+    const nor=Math.min(total,480),ov=Math.min(Math.max(total-480,0),240);
+    let b={.5:0,.75:0,1:0},eq=0;
+    for(let m=s+480;m<s+480+ov;m++){const r=band(m);b[r]++;eq+=r}
+    h+=kv(t("nor"),hhmm(nor))+kv(t("ovr"),hhmm(ov));
+    h+=kv("50% (05-13)",hhmm(b[.5]))+kv("75% (13-21)",hhmm(b[.75]))+kv("100% (21-05)",hhmm(b[1]))+kv(t("eq"),hhmm(eq));
+  }
+  $("hout").innerHTML=h;
+}
+const hhmm=m=>String(Math.floor(m/60)).padStart(2,"0")+"h"+String(Math.round(m%60)).padStart(2,"0");
+const kvh=(a,b)=>`<div class="kv"><span>${a}</span><b>${b}</b></div>`;
+const today=()=>new Date().toISOString().slice(0,10);
+const isFri=()=>new Date(($("hd").value||today())+"T12:00").getDay()===5;
+function span(s,e,fri){const total=e-s,o={total,b:{.5:0,.75:0,1:0},eq:0,nor:0,ov:0,fri:0};
+  if(fri){o.fri=Math.min(total,720);return o}
+  o.nor=Math.min(total,480);o.ov=Math.min(Math.max(total-480,0),240);
+  for(let m=s+480;m<s+480+o.ov;m++){const r=band(m);o.b[r]++;o.eq+=r}
+  return o}
+function dayCalc(){const hs=$("hs").value,he=$("he").value;if(!hs||!he)return null;
+  const[sh,sm]=hs.split(":").map(Number),[eh,em]=he.split(":").map(Number);const s=sh*60+sm;let e=eh*60+em;if(e<=s)e+=1440;
+  const fri=isFri(),o=span(s,e,fri);o.s=s;o.e=e;o.friDay=fri;o.trv=0;
+  if(tr){const last=(TR[$("t2").value.trim().toUpperCase()]||tr).stops.slice(-1)[0].a;let d=last-tr.stops[0].d;if(d<0)d+=1440;o.trv=d}
+  return o}
+function showDay(){const o=dayCalc();if(!o){$("hout").textContent=t("need");return null}
+  let h=kvh(t("tot"),hhmm(o.total)+" ("+hm(o.s)+" → "+hm(o.e)+")");
+  if(o.trv)h+=kvh(t("trvH"),hhmm(o.trv));
+  if(o.friDay)h+=kvh(t("fri"),hhmm(o.fri));
+  else h+=kvh(t("nor"),hhmm(o.nor))+kvh(t("ovr"),hhmm(o.ov))+kvh("50% (05-13)",hhmm(o.b[.5]))+kvh("75% (13-21)",hhmm(o.b[.75]))+kvh("100% (21-05)",hhmm(o.b[1]))+kvh(t("eq"),hhmm(o.eq));
+  $("hout").innerHTML=h;return o}
+function addRec(o,k,tn){S.log.push({id:Date.now(),d:$("hd").value||today(),k,tr:tn,s:o.s,tot:o.total,trv:o.trv||0,nor:o.nor,ov:o.ov,b5:o.b[.5],b75:o.b[.75],b100:o.b[1],eq:o.eq,fri:o.fri||0});save();drawLog()}
+function drawLog(){
+  const m=$("hm").value||today().slice(0,7);$("hm").value=m;
+  const L=S.log.filter(r=>r.d.slice(0,7)===m).sort((a,b)=>a.d<b.d?-1:1),sm=f=>L.reduce((a,r)=>a+(r[f]||0),0);
+  $("msum").innerHTML=kvh(t("days"),L.filter(r=>r.k==="trip").length)+kvh(t("resDays"),L.filter(r=>r.k==="res").length)+kvh(t("tot"),hhmm(sm("tot")))+kvh(t("trvH"),hhmm(sm("trv")))+kvh(t("nor"),hhmm(sm("nor")))+kvh(t("ovr"),hhmm(sm("ov")))+kvh("50%",hhmm(sm("b5")))+kvh("75%",hhmm(sm("b75")))+kvh("100%",hhmm(sm("b100")))+kvh(t("eq"),hhmm(sm("eq")))+kvh(t("fri"),hhmm(sm("fri")));
+  $("hlog").innerHTML=L.map(r=>`<div class="kv"><span>${r.d} · ${r.k==="res"?t("reserveT").split(" (")[0]+" "+hm(r.s):"#"+(r.tr||"—")}</span><span>${hhmm(r.tot)} <button data-id="${r.id}" class="btn s" style="width:auto;padding:2px 10px">✕</button></span></div>`).join("")}
+["hd","hs","he"].forEach(id=>$(id).oninput=showDay);
+$("hm").onchange=drawLog;
+$("hc").onclick=()=>{const o=showDay();if(o)addRec(o,"trip",tr?tr.no:"")};
+$("rsv").onclick=()=>{const s=+$("rshift").value,ot=Math.min(4,Math.max(0,+$("rot").value||0)),e=s+480+ot*60,o=span(s,e,isFri());o.s=s;o.e=e;o.trv=0;addRec(o,"res","")};
+$("hlog").onclick=e=>{const b=e.target.closest("button");if(!b)return;S.log=S.log.filter(r=>String(r.id)!==b.dataset.id);save();drawLog()};
+$("ussave").onclick=()=>{try{const u=JSON.parse($("usrj").value||"{}");Object.keys(u).forEach(k=>{if(!/^\d{6}[A-Z]$/.test(k))throw 0});S.users=u;save();$("usmsg").textContent=t("saved");boot()}catch(e){$("usmsg").textContent=t("bad")}};
+
+/* ===== التقارير ===== */
+function drawRep(){
+  $("rlist").innerHTML=S.reports.length?S.reports.slice().reverse().map(r=>`<div class="kv" style="display:block"><b>${t("rt")[r.k]}</b> <span class="mute">${new Date(r.t).toLocaleString(S.lang==="ar"?"ar-DZ":"fr-DZ")}${r.tr?" · "+r.tr:""}</span><div>${r.x.replace(/</g,"&lt;")}</div></div>`).join(""):`<p class="mute">${t("none")}</p>`;
+}
+$("rsave").onclick=()=>{const x=$("rtxt").value.trim();if(!x)return;S.reports.push({t:Date.now(),k:+$("rtype").value,tr:tr?tr.no:"",x});save();$("rtxt").value="";drawRep()};
+$("rcopy").onclick=async()=>{const txt=S.reports.map(r=>`[${t("rt")[r.k]}] ${new Date(r.t).toLocaleString()} ${r.tr?"#"+r.tr:""}\n${r.x}`).join("\n\n");try{await navigator.clipboard.writeText(txt);$("rcopy").textContent=t("saved")}catch(e){}setTimeout(()=>$("rcopy").textContent=t("copyAll"),1500)};
+
+/* ===== بيانات: هواتف + توقيت المحطات ===== */
+function drawPhones(){
+  const names=[...new Set(LINES.flatMap(l=>l.st.map(s=>s[0])).concat(['Bazoul P1','Bazoul P2']))].sort();
+  const v=$("pst").value;$("pst").innerHTML=names.map(n=>`<option>${n}</option>`).join("");if(v)$("pst").value=v;
+  $("plist").innerHTML=Object.entries(S.phones).map(([n,p])=>`<div class="kv"><span>${n}</span><a href="tel:${p}">${p}</a></div>`).join("");
+}
+$("psave").onclick=()=>{const p=$("pnum").value.trim(),n=$("pst").value;if(p)S.phones[n]=p;else delete S.phones[n];save();$("pnum").value="";drawPhones();if(tr)info()};
+$("svsave").onclick=()=>{try{S.svc=JSON.parse($("svcj").value);save();$("svmsg").textContent=t("saved");if(tr)drawTrip()}catch(e){$("svmsg").textContent=t("bad")}};
+$("svreset").onclick=()=>{S.svc=JSON.parse(JSON.stringify(SVC0));save();$("svcj").value=JSON.stringify(S.svc,null,1);if(tr)drawTrip()};
+// ================= حساب الساعات (نسخة مراجَعة: ذهاب + عودة EV) — تعريفات لاحقة تغلب السابقة =================
+function parseRet(){const v=$('t2').value.trim().toUpperCase();if(!v)return{mode:'none',label:''};if(v==='EV-CAR')return{mode:'car',label:'EV-CAR'};const k=v.startsWith('EV-')?v.slice(3):v,x=TR[k];return x&&!isFreight(x.no)?{mode:'train',tr:x,label:'EV-'+x.no}:{mode:'bad',label:v}}
+function prefillHours(){if(!$('hd').value)$('hd').value=today();if(tr&&!$('hs').value)$('hs').value=hm(tr.stops[0].d-60)}
+function dayCalc(){const d=$('hd').value||today(),hs=$('hs').value,he=$('he').value;if(!hs||!he)return null;
+  const st=new Date(d+'T'+hs);let en=new Date(($('hd2').value||d)+'T'+he);
+  if(!$('hd2').value&&en<=st)en=new Date(en.getTime()+864e5);
+  if(en<=st)return null;
+  const total=Math.round((en-st)/6e4),sm=st.getHours()*60+st.getMinutes(),fri=isFri(),o=span(sm,sm+total,fri);
+  o.s=sm;o.e=sm+total;o.friDay=fri;o.trv=Math.max(0,total-60);o.ret=parseRet();return o}
+function showDay(){const r=parseRet(),o=dayCalc();let h='';
+  if(r.mode==='none')h+=`<p class='mute' style='color:var(--amber)'>${t('retNeed')}</p>`;
+  if(r.mode==='bad')h+=`<p class='mute' style='color:var(--red)'>${t('retBad')}</p>`;
+  if(!o){$('hout').innerHTML=h;return null}
+  h+=kvh(t('retL'),r.label||'—')+kvh(t('tot'),hhmm(o.total))+kvh(t('trvH'),hhmm(o.trv));
+  if(o.friDay)h+=kvh(t('fri'),hhmm(o.fri));
+  else h+=kvh(t('nor'),hhmm(o.nor))+kvh(t('ovr'),hhmm(o.ov))+kvh('50% (05-13)',hhmm(o.b[.5]))+kvh('75% (13-21)',hhmm(o.b[.75]))+kvh('100% (21-05)',hhmm(o.b[1]))+kvh(t('eq'),hhmm(o.eq));
+  $('hout').innerHTML=h;return o}
+function addRec(o,k,tn){S.log.push({id:Date.now(),d:$('hd').value||today(),k,tr:tn,ret:(o.ret&&o.ret.label)||'',s:o.s,tot:o.total,trv:o.trv||0,nor:o.nor,ov:o.ov,b5:o.b[.5],b75:o.b[.75],b100:o.b[1],eq:o.eq,fri:o.fri||0});save();drawLog()}
+function drawLog(){const m=$('hm').value||today().slice(0,7);$('hm').value=m;
+  const L=S.log.filter(r=>r.d.slice(0,7)===m).sort((a,b)=>a.d<b.d?-1:1),sm=f=>L.reduce((a,r)=>a+(r[f]||0),0);
+  $('msum').innerHTML=kvh(t('days'),L.filter(r=>r.k==='trip').length)+kvh(t('resDays'),L.filter(r=>r.k==='res').length)+kvh(t('tot'),hhmm(sm('tot')))+kvh(t('trvH'),hhmm(sm('trv')))+kvh(t('nor'),hhmm(sm('nor')))+kvh(t('ovr'),hhmm(sm('ov')))+kvh('50%',hhmm(sm('b5')))+kvh('75%',hhmm(sm('b75')))+kvh('100%',hhmm(sm('b100')))+kvh(t('eq'),hhmm(sm('eq')))+kvh(t('fri'),hhmm(sm('fri')));
+  $('hlog').innerHTML=L.map(r=>`<div class='kv'><span>${r.d} · ${r.k==='res'?t('reserveT').split(' (')[0]+' '+hm(r.s):'#'+(r.tr||'—')+' ⇄ '+(r.ret||'—')}</span><span>${hhmm(r.tot)} <button data-id='${r.id}' class='btn s' style='width:auto;padding:2px 10px'>✕</button></span></div>`).join('')}
+$('t2').oninput=()=>{const r=parseRet();if(r.mode==='train')$('he').value=hm(r.tr.stops[r.tr.stops.length-1].a);showDay()};
+['hd','hd2','hs','he'].forEach(id=>$(id).oninput=showDay);
+$('hc').onclick=()=>{const o=dayCalc();if(!o||!o.ret||o.ret.mode==='none'||o.ret.mode==='bad'){showDay();return}addRec(o,'trip',tr?tr.no:'')};
+// ================= مرجع فتح وغلق المحطات =================
+const A="Feuillet annexe N°";
+const SVR={"Ghasrou":A+"7 du 09/05/2018 — Ain-Touta/M'Sila (Note d'unité S5g3 N°1(84)) ; AG S5N°1 du 26/03/2012","Barika":A+"7 du 09/05/2018 — Ain-Touta/M'Sila (Note d'unité S5g3 N°1(84)) ; AG S5N°1 du 26/03/2012","Seggana":A+"7 du 09/05/2018 — Ain-Touta/M'Sila ; voir AG S5N°1","Ouled-Zouai":A+"5, applicable du 18/09/2022 — El-Gourzi/Biskra","Ain-Yagout":A+"5, applicable du 18/09/2022 — El-Gourzi/Biskra","Djerma":A+"5, applicable du 18/09/2022 — El-Gourzi/Biskra","El-Outaya":A+"5, applicable du 18/09/2022 — El-Gourzi/Biskra","El-Meghair":A+"6, applicable du 03/03/2020 — Biskra/Touggourt","Djamaa":A+"6, applicable du 03/03/2020 — Biskra/Touggourt","Tamalous":A+"8, applicable du 15/02/2023 — Jijel/Sahki-Ahmed","Sidi-Mezghiche":A+"8, applicable du 15/02/2023 — Jijel/Sahki-Ahmed","Sidi-Abdelaziz":A+"8, applicable du 15/02/2023 — Jijel/Sahki-Ahmed","Ain-Kechera":A+"8, applicable du 15/02/2023 — Jijel/Sahki-Ahmed","Hammoudi-Krouma":A+"03, applicable du 15/12/2021 — Skikda/Constantine","Zit-Emba":A+"1, applicable du 14/03/2018 — Annaba/Ramdane-Djamel ; Avis de service S1 n°08(2000) du 11/09/2000","Oum-El-Bouaghi":A+"12, applicable du 09/06/2021 — Ain-M'Lila/Sidi-Yahia","Bir-El-Arch":A+"1, applicable du 21/11/2022 — BBA/El-Gourzi ; avis de service S1 n°1(10) du 03/01/2010","Tadjenanet":A+"1, applicable du 21/11/2022 — BBA/El-Gourzi ; avis de service S4 n°2(21) du 27/01/2021","Guidjel":A+"1, applicable du 21/11/2022 — BBA/El-Gourzi ; avis de service S4 n°2(21) du 27/01/2021","Ouled-Rahmoun":A+"2, applicable du 11/12/2018 — El-Gourzi/Constantine ; avis de région S5g3 n°01(2020) du 28/04/2020"};
+function openSvc(n){const sv=S.svc[n]||{},st=svcState(n);let h=`<div class='big'>${nm(n)}</div>`;
+  if(st)h+=`<span class='tag ${st.closed?'bad':'ok'}'>${st.closed?t('closed'):t('open')}</span>`;
+  if(sv.c24)h+=`<p>${t('h24')}</p>`;else if(sv.c)h+=kvh(t('cessT'),sv.c)+kvh(t('resT'),sv.r);else h+=`<p class='mute'>${t('noHrs')}</p>`;
+  if(sv.n)h+=`<p>${sv.n}</p>`;
+  h+=`<p class='mute'>${t('refL')} : ${SVR[n]||'—'}</p>`;
+  $('sv2-body').innerHTML=h;$('sheet2').hidden=false}
+$('svc').onclick=e=>{if(e.target.closest('#svbtn')&&cur!=null)openSvc(ord()[cur][0])};
+$('sv2-x').onclick=()=>{$('sheet2').hidden=true};$('sheet2').onclick=e=>{if(e.target.id==='sheet2')$('sheet2').hidden=true};
+boot();
+try{if("serviceWorker" in navigator&&location.protocol.startsWith("http"))navigator.serviceWorker.register("sw.js")}catch(e){}
+</script>
+</body>
+</html>
